@@ -3,14 +3,13 @@ package controller;
 import entities.Player;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.stage.StageStyle;
 import resources.Enums;
 import resources.GameConfig;
 import views.ConfigScreen;
@@ -26,8 +25,8 @@ public class Controller extends Application {
     private final int height = 450;
     private EventHandler<KeyEvent> toconfigscreen;
     private GameConfig currentGameConfig;
-    public Stage mainwindow;
-    public Player player;
+    private Stage mainwindow;
+    private Player player;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -67,14 +66,14 @@ public class Controller extends Application {
                 alert.setTitle("Selection Error");
                 alert.setContentText("Please select a difficulty.");
                 alert.showAndWait();
-            } else if (invalidConfig(name, diff)){
+            } else if (invalidConfig(name, diff)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Selection Error");
                 alert.setContentText("Please select a difficulty or enter a valid name.");
                 alert.showAndWait();
             } else {
                 try {
-                    GameConfig.difficulty = diff;
+                    GameConfig.setDifficulty(diff);
                     this.currentGameConfig = new GameConfig();
                     initializeGameScreen();
                 } catch (FileNotFoundException fileNotFoundException) {
@@ -85,15 +84,15 @@ public class Controller extends Application {
         mainwindow.show();
     }
 
-    private boolean nameIsNotValid(String name) {
+    public boolean nameIsNotValid(String name) {
         return name == null || name.trim().isEmpty();
     }
 
-    private boolean difficultyIsValid(Enums.Difficulty difficulty) {
+    public boolean difficultyIsValid(Enums.Difficulty difficulty) {
         return difficulty != null;
     }
 
-    private boolean invalidConfig(String name, Enums.Difficulty difficulty) {
+    public boolean invalidConfig(String name, Enums.Difficulty difficulty) {
         return nameIsNotValid(name) && !difficultyIsValid(difficulty);
     }
 

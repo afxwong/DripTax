@@ -3,16 +3,11 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import resources.GameConfig;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class GameScreen {
 
@@ -41,14 +36,14 @@ public class GameScreen {
         infopanel.prefHeight(100);
         infopanel.setLayoutX(850);
         infopanel.setLayoutY(0);
-        Label fruinlbl = new Label(String.format("Fire Ruin: %s", GameConfig.fruin));
-        Label wruinlbl = new Label(String.format("Water Ruin: %s", GameConfig.wruin));
-        Label gruinlbl = new Label(String.format("Ground Ruin: %s", GameConfig.gruin));
-        Label aruinlbl = new Label(String.format("Air Ruin: %s", GameConfig.aruin));
+        Label fruinlbl = new Label(String.format("Fire Ruin: %s", GameConfig.getFruin()));
+        Label wruinlbl = new Label(String.format("Water Ruin: %s", GameConfig.getWruin()));
+        Label gruinlbl = new Label(String.format("Ground Ruin: %s", GameConfig.getGruin()));
+        Label aruinlbl = new Label(String.format("Air Ruin: %s", GameConfig.getAruin()));
         infopanel.getChildren().addAll(fruinlbl, wruinlbl, gruinlbl, aruinlbl);
         infopanel.setAlignment(Pos.CENTER);
 
-        Label healthlbl = new Label(String.format("Wall Health: %s", GameConfig.towerhealth));
+        Label healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getTowerhealth()));
         healthlbl.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
         healthlbl.setPadding(new Insets(5, 5, 5, 5));
 
