@@ -1,4 +1,4 @@
-package controller;
+package resources;
 
 public class GameConfig {
 
@@ -10,7 +10,7 @@ public class GameConfig {
     private final int hardmoney = 1000;
     public static int towerhealth;
     public static int money;
-    public static ConfigController.Difficulty difficulty = ConfigController.difficultysetting;
+    public static Enums.Difficulty difficulty;
 
     public GameConfig() {
         switch (difficulty) {

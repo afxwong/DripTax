@@ -1,18 +1,19 @@
 package views;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-import java.io.IOException;
+import javafx.scene.control.Label;
 
 public class GameScreen {
 
-    public GameScreen() { }
+    private Label gamename;
+    private Label prompt;
 
-    public Scene getGameScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("@../../../resources/gamescreen.fxml"));
-        Parent root = loader.load();
-        return new Scene(root);
+    public GameScreen() {
+        this.gamename = new Label("INSERT NAME");
+        this.prompt = new Label("PRESS ENTER TO CONTINUE");
     }
+
+//    public Scene getGameScene() {
+//        return new Scene()
+//    }
 }
