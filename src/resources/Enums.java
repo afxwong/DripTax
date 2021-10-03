@@ -2,8 +2,8 @@ package resources;
 
 public class Enums {
     public enum Difficulty {
-        Easy,
+        Hard,
         Medium,
-        Hard
+        Easy
     }
 }

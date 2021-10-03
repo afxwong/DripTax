@@ -57,15 +57,20 @@ public class Controller extends Application {
         togamescreen.setOnAction(e -> {
             String name = textField.getText();
             Enums.Difficulty diff = comboBox.getValue();
-            if (name == null || name.trim().isEmpty()) {
+            if (nameIsNotValid(name)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Name Error");
                 alert.setContentText("Please enter a valid name.");
                 alert.showAndWait();
-            } else if (diff == null) {
+            } else if (!difficultyIsValid(diff)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Selection Error");
                 alert.setContentText("Please select a difficulty.");
+                alert.showAndWait();
+            } else if (invalidConfig(name, diff)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Selection Error");
+                alert.setContentText("Please select a difficulty or enter a valid name.");
                 alert.showAndWait();
             } else {
                 try {
@@ -78,6 +83,18 @@ public class Controller extends Application {
             }
         });
         mainwindow.show();
+    }
+
+    private boolean nameIsNotValid(String name) {
+        return name == null || name.trim().isEmpty();
+    }
+
+    private boolean difficultyIsValid(Enums.Difficulty difficulty) {
+        return difficulty != null;
+    }
+
+    private boolean invalidConfig(String name, Enums.Difficulty difficulty) {
+        return nameIsNotValid(name) && !difficultyIsValid(difficulty);
     }
 
     private void initializeGameScreen() throws FileNotFoundException {
