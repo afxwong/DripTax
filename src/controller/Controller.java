@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.stage.StageStyle;
 import resources.Enums;
 import resources.GameConfig;
 import views.ConfigScreen;
@@ -68,6 +69,8 @@ public class Controller extends Application {
                 alert.showAndWait();
             } else {
                 try {
+                    GameConfig.difficulty = diff;
+                    this.currentGameConfig = new GameConfig();
                     initializeGameScreen();
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
