@@ -3,7 +3,7 @@ package resources;
 public class GameConfig {
 
     private final int scalefactorHealth = 1000;
-    private final int scalefactorRuin = 1;
+    private final int scalefactorrune = 1;
 
     public static int getTowerhealth() {
         return towerhealth;
@@ -13,36 +13,36 @@ public class GameConfig {
         GameConfig.towerhealth = towerhealth;
     }
 
-    public static int getFruin() {
-        return fruin;
+    public static int getFrune() {
+        return frune;
     }
 
-    public static void setFruin(int fruin) {
-        GameConfig.fruin = fruin;
+    public static void setFrune(int frune) {
+        GameConfig.frune = frune;
     }
 
-    public static int getWruin() {
-        return wruin;
+    public static int getWrune() {
+        return wrune;
     }
 
-    public static void setWruin(int wruin) {
-        GameConfig.wruin = wruin;
+    public static void setWrune(int wrune) {
+        GameConfig.wrune = wrune;
     }
 
-    public static int getGruin() {
-        return gruin;
+    public static int getGrune() {
+        return grune;
     }
 
-    public static void setGruin(int gruin) {
-        GameConfig.gruin = gruin;
+    public static void setGrune(int grune) {
+        GameConfig.grune = grune;
     }
 
-    public static int getAruin() {
-        return aruin;
+    public static int getArune() {
+        return arune;
     }
 
-    public static void setAruin(int aruin) {
-        GameConfig.aruin = aruin;
+    public static void setArune(int arune) {
+        GameConfig.arune = arune;
     }
 
     public static Enums.Difficulty getDifficulty() {
@@ -54,23 +54,24 @@ public class GameConfig {
     }
 
     private static int towerhealth;
-    private static int fruin;
-    private static int wruin;
-    private static int gruin;
-    private static int aruin;
+    private static int frune;
+    private static int wrune;
+    private static int grune;
+    private static int arune;
     private static Enums.Difficulty difficulty;
 
     public GameConfig() {
+        setDifficulty(Enums.Difficulty.Easy);
         int difford = difficulty.ordinal() + 1;
         towerhealth = calculateTowerHealth(difford);
-        fruin = calculateRuinCount(difford);
-        wruin = calculateRuinCount(difford);
-        gruin = calculateRuinCount(difford);
-        aruin = calculateRuinCount(difford);
+        frune = calculateRuneCount(difford);
+        wrune = calculateRuneCount(difford);
+        grune = calculateRuneCount(difford);
+        arune = calculateRuneCount(difford);
     }
 
-    public int calculateRuinCount(int difford) {
-        return difford * this.scalefactorRuin;
+    public int calculateRuneCount(int difford) {
+        return difford * this.scalefactorrune;
     }
 
     public int calculateTowerHealth(int difford) {

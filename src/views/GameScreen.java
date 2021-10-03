@@ -36,11 +36,11 @@ public class GameScreen {
         infopanel.prefHeight(100);
         infopanel.setLayoutX(850);
         infopanel.setLayoutY(0);
-        Label fruinlbl = new Label(String.format("Fire Ruin: %s", GameConfig.getFruin()));
-        Label wruinlbl = new Label(String.format("Water Ruin: %s", GameConfig.getWruin()));
-        Label gruinlbl = new Label(String.format("Ground Ruin: %s", GameConfig.getGruin()));
-        Label aruinlbl = new Label(String.format("Air Ruin: %s", GameConfig.getAruin()));
-        infopanel.getChildren().addAll(fruinlbl, wruinlbl, gruinlbl, aruinlbl);
+        Label frunelbl = new Label(String.format("Fire rune: %s", GameConfig.getFrune()));
+        Label wrunelbl = new Label(String.format("Water rune: %s", GameConfig.getWrune()));
+        Label grunelbl = new Label(String.format("Ground rune: %s", GameConfig.getGrune()));
+        Label arunelbl = new Label(String.format("Air rune: %s", GameConfig.getArune()));
+        infopanel.getChildren().addAll(frunelbl, wrunelbl, grunelbl, arunelbl);
         infopanel.setAlignment(Pos.CENTER);
 
         Label healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getTowerhealth()));
