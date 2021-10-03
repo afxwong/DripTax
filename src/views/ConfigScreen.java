@@ -10,7 +10,7 @@ public class ConfigScreen {
 
     public ConfigScreen() { }
 
-    public Scene getScene() throws IOException {
+    public Scene getConfigScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("@../../../resources/configscreen.fxml"));
         Parent root = loader.load();
         return new Scene(root);

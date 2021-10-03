@@ -1,5 +1,6 @@
 package controller;
 
+import entities.Player;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -16,7 +17,9 @@ import java.io.IOException;
 
 public class Controller extends Application {
 
-    private Stage mainwindow;
+    private GameConfig currentGameConfig;
+    public static Stage mainwindow;
+    public static Player player;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -26,7 +29,7 @@ public class Controller extends Application {
         mainwindow.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 try {
-                    initializeConfigController();
+                    initializeConfigScreen();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -35,9 +38,9 @@ public class Controller extends Application {
         mainwindow.show();
     }
 
-    private void initializeConfigController() throws IOException {
+    private void initializeConfigScreen() throws IOException {
         ConfigScreen configScreen = new ConfigScreen();
-        mainwindow.setScene(configScreen.getScene());
+        mainwindow.setScene(configScreen.getConfigScene());
         mainwindow.show();
     }
 }
