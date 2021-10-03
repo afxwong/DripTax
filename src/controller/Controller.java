@@ -13,8 +13,10 @@ import javafx.scene.control.Button;
 import resources.Enums;
 import resources.GameConfig;
 import views.ConfigScreen;
+import views.GameScreen;
 import views.StartScreen;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Controller extends Application {
@@ -65,13 +67,19 @@ public class Controller extends Application {
                 alert.setContentText("Please select a difficulty.");
                 alert.showAndWait();
             } else {
-                initializeGameScreen();
+                try {
+                    initializeGameScreen();
+                } catch (FileNotFoundException fileNotFoundException) {
+                    fileNotFoundException.printStackTrace();
+                }
             }
         });
         mainwindow.show();
     }
 
-    private void initializeGameScreen() {
-
+    private void initializeGameScreen() throws FileNotFoundException {
+        GameScreen gameScreen = new GameScreen(1000, 250);
+        mainwindow.setScene(gameScreen.getGameScene());
+        mainwindow.show();
     }
 }
