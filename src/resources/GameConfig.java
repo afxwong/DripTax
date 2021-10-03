@@ -61,7 +61,6 @@ public class GameConfig {
     private static Enums.Difficulty difficulty;
 
     public GameConfig() {
-        setDifficulty(Enums.Difficulty.Easy);
         int difford = difficulty.ordinal() + 1;
         towerhealth = calculateTowerHealth(difford);
         frune = calculateRuneCount(difford);
