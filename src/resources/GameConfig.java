@@ -3,7 +3,7 @@ package resources;
 public class GameConfig {
 
     private final int scalefactorHealth = 1000;
-    private final int scalefactorrune = 1;
+    private final int scalefactorrune = 10;
 
     public static int getTowerhealth() {
         return towerhealth;
