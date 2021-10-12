@@ -11,16 +11,23 @@ import resources.GameConfig;
 
 public class GameScreen {
 
+    private final int arrowsetX = 840;
+    private final int arrowsetY = 190;
+    private final int arrowsetspacing = 55;
     private int width;
     private int height;
+    private Pane[][] towerpanes;
 
     public GameScreen(int width, int height) {
         this.width = width;
         this.height = height;
+        this.towerpanes = new Pane[15][5];
     }
 
     public Scene getGameScene() {
+        // root pane that has all panes stacked on it
         StackPane root = new StackPane();
+        // base pane that has all m2 reqs
         AnchorPane baselayer = new AnchorPane();
         root.setBackground(new Background(new BackgroundImage(
                 new Image("resources/mapbackground.png"),
@@ -48,14 +55,42 @@ public class GameScreen {
         healthlbl.setPadding(new Insets(5, 5, 5, 5));
 
         VBox imageboxes = new VBox();
-        imageboxes.setLayoutX(780);
-        imageboxes.setLayoutY(10);
-        for (int i = 1; i <= 5; i++) {
+        imageboxes.setLayoutX(this.arrowsetX);
+        imageboxes.setLayoutY(this.arrowsetY);
+        imageboxes.setSpacing(this.arrowsetspacing);
+        for (int i = 1; i <= 2; i++) {
             ImageView imageView = new ImageView(new Image("resources/arrow.png"));
             imageboxes.getChildren().add(imageView);
         }
+
+        // add grid
+        AnchorPane towergridanchorpane = new AnchorPane();
+        GridPane towergrid = new GridPane();
+//        towergrid.setGridLinesVisible(true);
+        for (int i = 0; i <= 14; i++) {
+            for (int j = 0; j <= 4; j++) {
+                Pane p = new Pane();
+                p.setMinSize(40, 50);
+                if (j % 2 == 0) {
+                    p.setOnMouseEntered(mouseEvent -> p.setStyle("-fx-border-color: red"));
+                    p.setOnMouseExited(mouseEvent -> p.setStyle("-fx-border-color: black"));
+                    p.setStyle("-fx-border-color: black");
+                }
+                towergrid.add(p, i, j);
+                this.towerpanes[i][j] = p;
+            }
+        }
+
+        towergrid.setLayoutX(227);
+        towergrid.setLayoutY(135);
+        towergrid.prefWidth(390);
+        towergrid.prefHeight(157);
+        towergridanchorpane.getChildren().add(towergrid);
+
+
+        // populate root and base layers
         baselayer.getChildren().addAll(infopanel, imageboxes, healthlbl);
-        root.getChildren().addAll(baselayer);
+        root.getChildren().addAll(baselayer, towergridanchorpane);
         return new Scene(root, this.width, this.height);
     }
 }
