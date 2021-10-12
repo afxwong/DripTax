@@ -1,11 +1,15 @@
 package views;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import resources.GameConfig;
 
@@ -74,6 +78,9 @@ public class GameScreen {
                 if (j % 2 == 0) {
                     p.setOnMouseEntered(mouseEvent -> p.setStyle("-fx-border-color: red"));
                     p.setOnMouseExited(mouseEvent -> p.setStyle("-fx-border-color: black"));
+                    int finalI = i; // This is here because
+                    int finalJ = j; // "Variable used in lambda expression should be final or effectively final"
+                    p.setOnMouseClicked(mouseEvent -> System.out.println("Pane #" + finalI + "-" + finalJ + " clicked"));
                     p.setStyle("-fx-border-color: black");
                 }
                 towergrid.add(p, i, j);
@@ -88,8 +95,35 @@ public class GameScreen {
         towergridanchorpane.getChildren().add(towergrid);
 
 
+        // Tower hotbar at bottom of screen
+        HBox towerHotbar = new HBox();
+        towerHotbar.setStyle("-fx-background-color: #ddd");
+        towerHotbar.setMinSize(1000, 100);
+        towerHotbar.setMaxSize(1000, 100);
+        towerHotbar.setLayoutX(0);
+        towerHotbar.setLayoutY(400);
+        ImageView FireTowerLabel = new ImageView(new Image("resources/fireTower.png", 100, 100, false, false));
+        ImageView WaterTowerLabel = new ImageView(new Image("resources/waterTower.png", 100, 100, false, false));
+        ImageView GroundTowerLabel = new ImageView(new Image("resources/groundTower.png", 100, 100, false, false));
+        ImageView AirTowerLabel = new ImageView(new Image("resources/airTower.png", 100, 100, false, false));
+        FireTowerLabel.setOnMouseClicked(mouseEvent -> System.out.println("FireTowerLabel clicked"));
+        WaterTowerLabel.setOnMouseClicked(mouseEvent -> System.out.println("WaterTowerLabel clicked"));
+        GroundTowerLabel.setOnMouseClicked(mouseEvent -> System.out.println("GroundTowerLabel clicked"));
+        AirTowerLabel.setOnMouseClicked(mouseEvent -> System.out.println("AirTowerLabel clicked"));
+        FireTowerLabel.setPickOnBounds(true);
+        WaterTowerLabel.setPickOnBounds(true);
+        GroundTowerLabel.setPickOnBounds(true);
+        AirTowerLabel.setPickOnBounds(true);
+        towerHotbar.getChildren().addAll(FireTowerLabel, WaterTowerLabel, GroundTowerLabel, AirTowerLabel);
+        towerHotbar.setAlignment(Pos.CENTER);
+        towergridanchorpane.getChildren().add(towerHotbar);
+
+
         // populate root and base layers
         baselayer.getChildren().addAll(infopanel, imageboxes, healthlbl);
+        // towergridanchorpane holds all clickable items, including the tower grid and the tower hotbar
+        // This is because if you try to add another pane for clicking items, it will be on top of this pane
+        // It should probably be renamed
         root.getChildren().addAll(baselayer, towergridanchorpane);
         return new Scene(root, this.width, this.height);
     }
