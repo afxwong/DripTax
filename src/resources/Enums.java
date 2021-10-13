@@ -6,4 +6,11 @@ public class Enums {
         Medium,
         Easy
     }
+
+    public enum Element {
+        Fire,
+        Water,
+        Ground,
+        Air
+    }
 }

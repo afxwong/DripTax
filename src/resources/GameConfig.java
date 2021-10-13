@@ -4,6 +4,7 @@ public class GameConfig {
 
     private final int scalefactorHealth = 1000;
     private final int scalefactorrune = 10;
+    public static final int towerCost = 10;
 
     public static int getTowerhealth() {
         return towerhealth;
