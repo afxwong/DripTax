@@ -26,14 +26,14 @@ public class TowerGridCell extends Pane {
 
     private void initTowerCell(int i, int j) {
         this.setOnMouseEntered(mouseEvent -> {
-            if (selected) {
+            if (this.selected) {
                 this.setStyle("-fx-border-color: white");
             } else {
                 this.setStyle("-fx-border-color: red");
             }
         });
         this.setOnMouseExited(mouseEvent -> {
-            if (selected) {
+            if (this.selected) {
                 this.setStyle("-fx-border-color: lawngreen");
             } else {
                 this.setStyle("-fx-border-color: black");
@@ -42,8 +42,8 @@ public class TowerGridCell extends Pane {
         this.setOnMouseClicked(mouseEvent -> {
             //System.out.println("Pane #" + i + "-" + j + " clicked");
             int[] tile = new int[] {i, j};
-            selected = Player.selectTile(tile);
-            if (selected) {
+            this.selected = Player.selectTile(tile);
+            if (this.selected) {
                 this.setStyle("-fx-border-color: white");
             } else {
                 this.setStyle("-fx-border-color: red");
@@ -57,14 +57,14 @@ public class TowerGridCell extends Pane {
     }
 
     public void deselect() {
-        selected = false;
+        this.selected = false;
         this.setStyle("-fx-border-color: black");
     }
 
     public void placeTower(Element e) {
-        if (!hasTower) {
-            hasTower = true;
-            tower = new Tower(e);
+        if (!this.hasTower) {
+            this.hasTower = true;
+            this.tower = new Tower(e);
             System.out.println(e + " tower placed at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
         } else {
             System.out.println("Replaced tower with " + e + " tower at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
@@ -72,7 +72,7 @@ public class TowerGridCell extends Pane {
     }
 
     public void removeTower() {
-        hasTower = false;
-        tower = null;
+        this.hasTower = false;
+        this.tower = null;
     }
 }

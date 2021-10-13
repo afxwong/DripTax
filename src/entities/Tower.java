@@ -7,13 +7,13 @@ public class Tower {
     private int level;
 
     public Tower(Element e) {
-        element = e;
-        level = 0;
+        this.element = e;
+        this.level = 0;
     }
 
     // Various methods implemented now that will be used soon
     public void switchElement(Element e) {
-        element = e;
+        this.element = e;
     }
 
     public void upgradeLevel() {
