@@ -35,17 +35,17 @@ public class HotbarComponent extends HBox {
 
     private void placeTower(Element towerType) {
         boolean sufficentRunes = false;
-        if (towerType == Element.Fire && GameConfig.getFrune() >= GameConfig.towerCost) {
-            GameConfig.setFrune(GameConfig.getFrune() - 10);
+        if (towerType == Element.Fire && GameConfig.getFrune() >= GameConfig.getTowerCost()) {
+            GameConfig.setFrune(GameConfig.getFrune() - GameConfig.getTowerCost());
             sufficentRunes = true;
-        } else if (towerType == Element.Water && GameConfig.getWrune() >= GameConfig.towerCost) {
-            GameConfig.setWrune(GameConfig.getWrune() - 10);
+        } else if (towerType == Element.Water && GameConfig.getWrune() >= GameConfig.getTowerCost()) {
+            GameConfig.setWrune(GameConfig.getWrune() - GameConfig.getTowerCost());
             sufficentRunes = true;
-        } else if (towerType == Element.Ground && GameConfig.getGrune() >= GameConfig.towerCost) {
-            GameConfig.setGrune(GameConfig.getGrune() - 10);
+        } else if (towerType == Element.Ground && GameConfig.getGrune() >= GameConfig.getTowerCost()) {
+            GameConfig.setGrune(GameConfig.getGrune() - GameConfig.getTowerCost());
             sufficentRunes = true;
-        } else if (towerType == Element.Air && GameConfig.getArune() >= GameConfig.towerCost) {
-            GameConfig.setArune(GameConfig.getArune() - 10);
+        } else if (towerType == Element.Air && GameConfig.getArune() >= GameConfig.getTowerCost()) {
+            GameConfig.setArune(GameConfig.getArune() - GameConfig.getTowerCost());
             sufficentRunes = true;
         }
         if (sufficentRunes) {
