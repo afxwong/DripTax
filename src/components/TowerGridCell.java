@@ -68,14 +68,16 @@ public class TowerGridCell extends Pane {
             this.hasTower = true;
             this.tower = new Tower(e);
             System.out.println(e + " tower placed at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
+            Element towerElem = tower.getElement();
+            String pngName = "resources/" + towerElem.toString().toLowerCase() + "Tower.png";
+            ImageView towerPic = new ImageView(new Image(pngName, 40, 45, false, false));
+            this.getChildren().add(towerPic);
         } else {
-            System.out.println("Replaced tower with " + e + " tower at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
+            // currently removes tower
+            System.out.println("Removed tower at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
             this.getChildren().clear();
+            removeTower();
         }
-        Element towerElem = tower.getElement();
-        String pngName = "resources/" + towerElem.toString().toLowerCase() + "Tower.png";
-        ImageView towerPic = new ImageView(new Image(pngName, 40, 45, false, false));
-        this.getChildren().add(towerPic);
     }
 
     public void removeTower() {
