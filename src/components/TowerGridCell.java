@@ -75,12 +75,12 @@ public class TowerGridCell extends Pane {
         } else {
             // TODO: currently removes tower
             System.out.println("Removed tower at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
-            this.getChildren().clear();
             removeTower();
         }
     }
 
     public void removeTower() {
+        this.getChildren().clear();
         this.hasTower = false;
         this.tower = null;
     }
