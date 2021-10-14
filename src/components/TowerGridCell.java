@@ -1,9 +1,11 @@
 package components;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import entities.Player;
 import entities.Tower;
 import resources.Enums.Element;
+import javafx.scene.image.ImageView;
 
 public class TowerGridCell extends Pane {
 
@@ -68,7 +70,12 @@ public class TowerGridCell extends Pane {
             System.out.println(e + " tower placed at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
         } else {
             System.out.println("Replaced tower with " + e + " tower at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
+            this.getChildren().clear();
         }
+        Element towerElem = tower.getElement();
+        String pngName = "resources/" + towerElem.toString().toLowerCase() + "Tower.png";
+        ImageView towerPic = new ImageView(new Image(pngName, 40, 45, false, false));
+        this.getChildren().add(towerPic);
     }
 
     public void removeTower() {

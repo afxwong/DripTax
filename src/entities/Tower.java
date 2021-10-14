@@ -16,6 +16,8 @@ public class Tower {
         this.element = e;
     }
 
+    public Element getElement() { return this.element; }
+
     public void upgradeLevel() {
         this.level++;
     }
