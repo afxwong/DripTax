@@ -73,7 +73,7 @@ public class TowerGridCell extends Pane {
             ImageView towerPic = new ImageView(new Image(pngName, 40, 45, false, false));
             this.getChildren().add(towerPic);
         } else {
-            // currently removes tower
+            // TODO: currently removes tower
             System.out.println("Removed tower at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
             this.getChildren().clear();
             removeTower();
