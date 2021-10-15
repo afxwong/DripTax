@@ -5,6 +5,7 @@ public class GameConfig {
     private final int scalefactorHealth = 1000;
     private final int scalefactorrune = 100;
     public final int scalefactorTowerCost = 10;
+    private int difford;
     private static int towerhealth;
     private static int towerCost;
     private static int frune;
@@ -14,7 +15,7 @@ public class GameConfig {
     private static Enums.Difficulty difficulty;
 
     public GameConfig() {
-        int difford = difficulty.ordinal() + 1;
+        this.difford = difficulty.ordinal() + 1;
         towerhealth = calculateTowerHealth(difford);
         frune = calculateRuneCount(difford);
         wrune = calculateRuneCount(difford);
@@ -22,6 +23,8 @@ public class GameConfig {
         arune = calculateRuneCount(difford);
         towerCost = calculateTowerCost(difford);
     }
+
+    public int getDifford() { return difford; }
 
     public static int getTowerCost() {
         return towerCost;

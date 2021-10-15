@@ -23,4 +23,15 @@ public class GameConfigTest {
         assertEquals(config.calculateTowerHealth(2), 2000);
         assertEquals(config.calculateTowerHealth(3), 3000);
     }
+
+    @org.junit.jupiter.api.Test
+    void testCalculateTowerCost() {
+        GameConfig.setDifficulty(Enums.Difficulty.Easy);
+        GameConfig config = new GameConfig();
+        assertEquals(config.calculateTowerCost(3), 10);
+        GameConfig.setDifficulty(Enums.Difficulty.Medium);
+        assertEquals(config.calculateTowerCost(2), 20);
+        GameConfig.setDifficulty(Enums.Difficulty.Hard);
+        assertEquals(config.calculateTowerCost(1), 30);
+    }
 }

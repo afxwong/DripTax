@@ -34,21 +34,21 @@ public class HotbarComponent extends HBox {
     }
 
     private void placeTower(Element towerType) {
-        boolean sufficentRunes = false;
-        if (towerType == Element.Fire && GameConfig.getFrune() >= GameConfig.getTowerCost()) {
+        boolean sufficientRunes = false;
+        if (towerType == Element.Fire && hasSufficientRuins(GameConfig.getFrune(), GameConfig.getTowerCost())) {
             GameConfig.setFrune(GameConfig.getFrune() - GameConfig.getTowerCost());
-            sufficentRunes = true;
-        } else if (towerType == Element.Water && GameConfig.getWrune() >= GameConfig.getTowerCost()) {
+            sufficientRunes = true;
+        } else if (towerType == Element.Water && hasSufficientRuins(GameConfig.getWrune(), GameConfig.getTowerCost())) {
             GameConfig.setWrune(GameConfig.getWrune() - GameConfig.getTowerCost());
-            sufficentRunes = true;
-        } else if (towerType == Element.Ground && GameConfig.getGrune() >= GameConfig.getTowerCost()) {
+            sufficientRunes = true;
+        } else if (towerType == Element.Ground && hasSufficientRuins(GameConfig.getGrune(), GameConfig.getTowerCost())) {
             GameConfig.setGrune(GameConfig.getGrune() - GameConfig.getTowerCost());
-            sufficentRunes = true;
-        } else if (towerType == Element.Air && GameConfig.getArune() >= GameConfig.getTowerCost()) {
+            sufficientRunes = true;
+        } else if (towerType == Element.Air && hasSufficientRuins(GameConfig.getArune(), GameConfig.getTowerCost())) {
             GameConfig.setArune(GameConfig.getArune() - GameConfig.getTowerCost());
-            sufficentRunes = true;
+            sufficientRunes = true;
         }
-        if (sufficentRunes) {
+        if (sufficientRunes) {
             GameScreen.infoPanel.updateInfo();
             int[] selectedTile = Player.getSelectedTile();
             TowerGrid.placeTower(selectedTile, towerType);
@@ -59,5 +59,9 @@ public class HotbarComponent extends HBox {
             alert.setContentText("10 " + towerType + " Runes are required to purchase this tower.");
             alert.showAndWait();
         }
+    }
+
+    public static boolean hasSufficientRuins(int runes, int cost) {
+        return runes >= cost;
     }
 }
