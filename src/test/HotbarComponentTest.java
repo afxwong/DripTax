@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class HotbarComponentTest {
     @org.junit.jupiter.api.Test
-    void hasSufficientRunesTest() {
+    void testHasSufficientRunes() {
         GameConfig.setDifficulty(Enums.Difficulty.Easy);
         GameConfig config = new GameConfig();
         assertTrue(hasSufficientRuins(GameConfig.getFrune(), config.calculateTowerCost(config.getDifford())));
