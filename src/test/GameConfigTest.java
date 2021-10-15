@@ -10,9 +10,9 @@ public class GameConfigTest {
     void testCalculateRuneCount() {
         GameConfig.setDifficulty(Enums.Difficulty.Easy);
         GameConfig config = new GameConfig();
-        assertEquals(config.calculateRuneCount(1), 1);
-        assertEquals(config.calculateRuneCount(2), 2);
-        assertEquals(config.calculateRuneCount(3), 3);
+        assertEquals(config.calculateRuneCount(1), 100);
+        assertEquals(config.calculateRuneCount(2), 200);
+        assertEquals(config.calculateRuneCount(3), 300);
     }
 
     @org.junit.jupiter.api.Test
