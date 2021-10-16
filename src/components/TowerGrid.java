@@ -15,16 +15,16 @@ public class TowerGrid extends GridPane {
     }
 
     public void setTowerpanes(TowerGridCell[][] towerpanes) {
-        this.towerPanes = towerpanes;
+        towerPanes = towerpanes;
     }
 
     public TowerGrid() {
-        this.towerPanes = new TowerGridCell[this.griddimension_i][this.griddimension_j];
+        towerPanes = new TowerGridCell[this.griddimension_i][this.griddimension_j];
         for (int i = 0; i <= 14; i++) {
             for (int j = 0; j <= 4; j++) {
                 TowerGridCell towerGridCell = new TowerGridCell(i, j);
                 this.add(towerGridCell, i, j);
-                this.towerPanes[i][j] = towerGridCell;
+                towerPanes[i][j] = towerGridCell;
             }
         }
         this.setLayoutX(227);
