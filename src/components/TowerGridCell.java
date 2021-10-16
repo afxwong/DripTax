@@ -84,4 +84,8 @@ public class TowerGridCell extends Pane {
         this.hasTower = false;
         this.tower = null;
     }
+
+    public boolean getHasTower() {
+        return hasTower;
+    }
 }
