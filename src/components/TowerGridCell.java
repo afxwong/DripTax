@@ -57,6 +57,10 @@ public class TowerGridCell extends Pane {
     private void initPathCell() {
 
     }
+    public void select() {
+        this.selected = true;
+        this.setStyle("-fx-border-color: lawngreen");
+    }
 
     public void deselect() {
         this.selected = false;
