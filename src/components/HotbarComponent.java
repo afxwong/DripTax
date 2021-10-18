@@ -29,13 +29,21 @@ public class HotbarComponent extends HBox {
                 "resources/airTower.png", 100, 100, false, false));
 
         Tooltip.install(fireTowerLabel, new Tooltip(
-                "Fire Tower\nDeals damage over time by applying Burn status effect"));
+                "Fire Tower\nDeals damage over time by applying Burn status effect"
+                        + "\nCost: " + GameConfig.calculateTowerCost(GameConfig.getDifficulty())
+                        + " Fire Ruins"));
         Tooltip.install(waterTowerLabel, new Tooltip(
-                "Water Tower\nSlows enemies, ice upgrade that freezes enemies"));
+                "Water Tower\nSlows enemies, ice upgrade that freezes enemies"
+                        + "\nCost: " + GameConfig.calculateTowerCost(GameConfig.getDifficulty())
+                        + " Water Ruins"));
         Tooltip.install(groundTowerLabel, new Tooltip(
-                "Ground Tower\nSplash damage of ground type"));
+                "Ground Tower\nSplash damage of ground type"
+                        + "\nCost: " + GameConfig.calculateTowerCost(GameConfig.getDifficulty())
+                        + " Ground Ruins"));
         Tooltip.install(airTowerLabel, new Tooltip(
-                "Air Tower\nFast attack, low damage attack of air type"));
+                "Air Tower\nFast attack, low damage attack of air type"
+                        + "\nCost: " + GameConfig.calculateTowerCost(GameConfig.getDifficulty())
+                        + " Air Ruins"));
         fireTowerLabel.setOnMouseClicked(mouseEvent -> placeTower(Element.Fire));
         waterTowerLabel.setOnMouseClicked(mouseEvent -> placeTower(Element.Water));
         groundTowerLabel.setOnMouseClicked(mouseEvent -> placeTower(Element.Ground));
