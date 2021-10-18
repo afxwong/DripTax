@@ -17,12 +17,21 @@ public class GameScreen {
     private final int arrowsetspacing = 55;
     private int width;
     private int height;
-    public static AnchorPane clickableAnchorPane = new AnchorPane();
-    public static InfoPanel infoPanel = new InfoPanel();
+
+    private static AnchorPane clickableAnchorPane = new AnchorPane();
+    private static InfoPanel infoPanel = new InfoPanel();
 
     public GameScreen(int width, int height) {
         this.width = width;
         this.height = height;
+    }
+
+    public static AnchorPane getClickableAnchorPane() {
+        return clickableAnchorPane;
+    }
+
+    public static InfoPanel getInfoPanel() {
+        return infoPanel;
     }
 
     public Scene getGameScene() {
@@ -64,8 +73,10 @@ public class GameScreen {
 
         // populate root and base layers
         baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl);
-        // clickableAnchorPane holds all clickable items, including the tower grid and the tower hotbar
-        // This is because if you try to add another pane for clicking items, it will be on top of this pane
+        // clickableAnchorPane holds all clickable items,
+        // including the tower grid and the tower hotbar
+        // This is because if you try to add another pane for clicking items,
+        // it will be on top of this pane
         root.getChildren().addAll(baselayer, clickableAnchorPane);
         return new Scene(root, this.width, this.height);
     }

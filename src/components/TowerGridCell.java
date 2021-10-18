@@ -71,14 +71,16 @@ public class TowerGridCell extends Pane {
         if (!this.hasTower) {
             this.hasTower = true;
             this.tower = new Tower(e);
-            System.out.println(e + " tower placed at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
+            System.out.println(e + " tower placed at Pane #"
+                    + this.gridIndex[0] + "-" + this.gridIndex[1]);
             Element towerElem = tower.getElement();
             String pngName = "resources/" + towerElem.toString().toLowerCase() + "Tower.png";
             ImageView towerPic = new ImageView(new Image(pngName, 40, 45, false, false));
             this.getChildren().add(towerPic);
         } else {
-            // TODO: currently removes tower
-            System.out.println("Removed tower at Pane #" + this.gridIndex[0] + "-" + this.gridIndex[1]);
+            // Shouldn't get here probably. Need to fix.
+            System.out.println("Removed tower at Pane #"
+                    + this.gridIndex[0] + "-" + this.gridIndex[1]);
             removeTower();
         }
     }

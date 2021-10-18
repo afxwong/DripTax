@@ -12,7 +12,8 @@ public class Player {
     public Player() {
     }
 
-    // Selects/deselects a tile and returns true if a tile is selected, false if a tile is no longer selected
+    // Selects/deselects a tile and returns true if a tile is selected,
+    // false if a tile is no longer selected
     public static boolean selectTile(int[] tile) {
         //System.out.println("selectedTile: " + selectedTile[0] + "-" + selectedTile[1]);
         //System.out.println("tile: " + tile[0] + "-" + tile[1]);
@@ -22,14 +23,14 @@ public class Player {
             selectedTile = tile;
             tileIsSelected = true;
             // Add hotbar if only no hotbar showing
-            if (GameScreen.clickableAnchorPane.getChildren().size() < 2) {
-                GameScreen.clickableAnchorPane.getChildren().add(new HotbarComponent());
+            if (GameScreen.getClickableAnchorPane().getChildren().size() < 2) {
+                GameScreen.getClickableAnchorPane().getChildren().add(new HotbarComponent());
             }
         } else { // Deselect selected tile
             selectedTile = new int[] {-1, -1};
             tileIsSelected = false;
             // Remove hotbar
-            GameScreen.clickableAnchorPane.getChildren().remove(1);
+            GameScreen.getClickableAnchorPane().getChildren().remove(1);
         }
         return tileIsSelected;
     }

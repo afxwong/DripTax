@@ -6,8 +6,8 @@ import resources.Enums.Element;
 
 public class TowerGrid extends GridPane {
 
-    private final int griddimension_i = 15;
-    private final int griddimension_j = 5;
+    private final int griddimensionI = 15;
+    private final int griddimensionJ = 5;
     private static TowerGridCell[][] towerPanes;
     private final double gridX = 227;
     private final double gridY = 135;
@@ -21,7 +21,7 @@ public class TowerGrid extends GridPane {
     }
 
     public TowerGrid() {
-        towerPanes = new TowerGridCell[this.griddimension_i][this.griddimension_j];
+        towerPanes = new TowerGridCell[this.griddimensionI][this.griddimensionJ];
         for (int i = 0; i <= 14; i++) {
             for (int j = 0; j <= 4; j++) {
                 TowerGridCell towerGridCell = new TowerGridCell(i, j);

@@ -9,8 +9,8 @@ public class TowerGridTest {
     @org.junit.jupiter.api.Test
     void testGridLocation() {
         TowerGrid tg = new TowerGrid();
-        assertEquals(tg.getGridX(),227);
-        assertEquals(tg.getGridY(),135);
+        assertEquals(tg.getGridX(), 227);
+        assertEquals(tg.getGridY(), 135);
     }
 
 }

@@ -4,7 +4,7 @@ public class GameConfig {
 
     private final int scalefactorHealth = 1000;
     private final int scalefactorrune = 100;
-    public final int scalefactorTowerCost = 10;
+    private final int scalefactorTowerCost = 10;
     private int difford;
     private static int towerhealth;
     private static int towerCost;
@@ -24,7 +24,9 @@ public class GameConfig {
         towerCost = calculateTowerCost(difford);
     }
 
-    public int getDifford() { return difford; }
+    public int getDifford() {
+        return difford;
+    }
 
     public static int getTowerCost() {
         return towerCost;
