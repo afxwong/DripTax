@@ -3,6 +3,7 @@ package components;
 import entities.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -17,10 +18,16 @@ public class HotbarComponent extends HBox {
         this.setMaxSize(1000, 100);
         this.setLayoutX(0);
         this.setLayoutY(400);
+
         ImageView FireTowerLabel = new ImageView(new Image("resources/fireTower.png", 100, 100, false, false));
         ImageView WaterTowerLabel = new ImageView(new Image("resources/waterTower.png", 100, 100, false, false));
         ImageView GroundTowerLabel = new ImageView(new Image("resources/groundTower.png", 100, 100, false, false));
         ImageView AirTowerLabel = new ImageView(new Image("resources/airTower.png", 100, 100, false, false));
+
+        Tooltip.install(FireTowerLabel, new Tooltip("Fire Tower - deals damage over time by applying Burn status effect"));
+        Tooltip.install(WaterTowerLabel, new Tooltip("Water Tower - slows enemies, ice upgrade that freezes enemies"));
+        Tooltip.install(GroundTowerLabel, new Tooltip("Ground Tower - splash damage"));
+        Tooltip.install(AirTowerLabel, new Tooltip("Air Tower - fast attack, low damage"));
         FireTowerLabel.setOnMouseClicked(mouseEvent -> placeTower(Element.Fire));
         WaterTowerLabel.setOnMouseClicked(mouseEvent -> placeTower(Element.Water));
         GroundTowerLabel.setOnMouseClicked(mouseEvent -> placeTower(Element.Ground));
