@@ -21,8 +21,10 @@ import java.io.IOException;
 
 public class Controller extends Application {
 
-    private final int width = 800;
-    private final int height = 450;
+    private final int initwidth = 800;
+    private final int initheight = 450;
+    private final int gamewidth = 1000;
+    private final int gameheight = 500;
     private EventHandler<KeyEvent> toconfigscreen;
     private GameConfig currentGameConfig;
     private Stage mainwindow;
@@ -30,7 +32,7 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        StartScreen scene = new StartScreen(this.width, this.height);
+        StartScreen scene = new StartScreen(this.initwidth, this.initheight);
         mainwindow = stage;
         mainwindow.setScene(scene.getStartScene());
         this.toconfigscreen = keyEvent -> {
@@ -48,7 +50,7 @@ public class Controller extends Application {
 
     private void initializeConfigScreen() throws IOException {
         mainwindow.removeEventFilter(KeyEvent.KEY_PRESSED, this.toconfigscreen);
-        ConfigScreen configScreen = new ConfigScreen(this.width, this.height);
+        ConfigScreen configScreen = new ConfigScreen(this.initwidth, this.initheight);
         mainwindow.setScene(configScreen.getConfigScene());
         Button togamescreen = configScreen.getTogamescreen();
         TextField textField = configScreen.getNamefield();
@@ -93,7 +95,7 @@ public class Controller extends Application {
     }
 
     private void initializeGameScreen() throws FileNotFoundException {
-        GameScreen gameScreen = new GameScreen(1000, 250);
+        GameScreen gameScreen = new GameScreen(this.gamewidth, this.gameheight);
         mainwindow.setScene(gameScreen.getGameScene());
         mainwindow.show();
     }

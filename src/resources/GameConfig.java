@@ -3,7 +3,38 @@ package resources;
 public class GameConfig {
 
     private final int scalefactorHealth = 1000;
-    private final int scalefactorrune = 1;
+    private final int scalefactorrune = 100;
+    private static int scalefactorTowerCost = 10;
+    private int difford;
+    private static int towerhealth;
+    private static int towerCost;
+    private static int frune;
+    private static int wrune;
+    private static int grune;
+    private static int arune;
+    private static Enums.Difficulty difficulty;
+
+    public GameConfig() {
+        this.difford = difficulty.ordinal() + 1;
+        towerhealth = calculateTowerHealth(difford);
+        frune = calculateRuneCount(difford);
+        wrune = calculateRuneCount(difford);
+        grune = calculateRuneCount(difford);
+        arune = calculateRuneCount(difford);
+        towerCost = calculateTowerCost(difford);
+    }
+
+    public int getDifford() {
+        return difford;
+    }
+
+    public static int getTowerCost() {
+        return towerCost;
+    }
+
+    public static void setTowerCost(int towerCost) {
+        GameConfig.towerCost = towerCost;
+    }
 
     public static int getTowerhealth() {
         return towerhealth;
@@ -53,27 +84,28 @@ public class GameConfig {
         GameConfig.difficulty = difficulty;
     }
 
-    private static int towerhealth;
-    private static int frune;
-    private static int wrune;
-    private static int grune;
-    private static int arune;
-    private static Enums.Difficulty difficulty;
-
-    public GameConfig() {
-        int difford = difficulty.ordinal() + 1;
-        towerhealth = calculateTowerHealth(difford);
-        frune = calculateRuneCount(difford);
-        wrune = calculateRuneCount(difford);
-        grune = calculateRuneCount(difford);
-        arune = calculateRuneCount(difford);
-    }
-
     public int calculateRuneCount(int difford) {
         return difford * this.scalefactorrune;
     }
 
     public int calculateTowerHealth(int difford) {
         return difford * this.scalefactorHealth;
+    }
+
+    public int calculateTowerCost(int difford) {
+        if (difficulty == Enums.Difficulty.Easy) {
+            return (difford - 2) * scalefactorTowerCost;
+        }
+        return difficulty == Enums.Difficulty.Medium ? difford * scalefactorTowerCost
+                : (difford + 2) * scalefactorTowerCost;
+    }
+
+    public static int calculateTowerCost(Enums.Difficulty diff) {
+        if (difficulty == Enums.Difficulty.Easy) {
+            return (Enums.Difficulty.Easy.ordinal() - 3) * scalefactorTowerCost;
+        }
+        return difficulty == Enums.Difficulty.Medium ? (Enums.Difficulty.Medium.ordinal() + 1)
+                * scalefactorTowerCost
+                : (Enums.Difficulty.Hard.ordinal() + 3) * scalefactorTowerCost;
     }
 }
