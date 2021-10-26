@@ -4,6 +4,7 @@ import components.InfoPanel;
 import components.TowerGrid;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,15 +16,21 @@ public class GameScreen {
     private final int arrowsetX = 840;
     private final int arrowsetY = 190;
     private final int arrowsetspacing = 55;
+    private Button toendscreen;
     private int width;
     private int height;
+    private static AnchorPane clickableAnchorPane;
+    private static InfoPanel infoPanel;
 
-    private static AnchorPane clickableAnchorPane = new AnchorPane();
-    private static InfoPanel infoPanel = new InfoPanel();
+    public Button getToendscreen() {
+        return toendscreen;
+    }
 
     public GameScreen(int width, int height) {
         this.width = width;
         this.height = height;
+        clickableAnchorPane = new AnchorPane();
+        infoPanel = new InfoPanel();
     }
 
     public static AnchorPane getClickableAnchorPane() {
@@ -73,11 +80,13 @@ public class GameScreen {
 
         // populate root and base layers
         baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl);
-        // clickableAnchorPane holds all clickable items,
-        // including the tower grid and the tower hotbar
-        // This is because if you try to add another pane for clicking items,
-        // it will be on top of this pane
-        root.getChildren().addAll(baselayer, clickableAnchorPane);
+
+        // add button to end screen
+        this.toendscreen = new Button("Proceed to End Screen");
+        this.toendscreen.setVisible(false);
+        // TODO: make this button visible when game ends
+
+        root.getChildren().addAll(baselayer, clickableAnchorPane, this.toendscreen);
         return new Scene(root, this.width, this.height);
     }
 }
