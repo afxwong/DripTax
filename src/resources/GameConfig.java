@@ -102,7 +102,7 @@ public class GameConfig {
 
     public static int calculateTowerCost(Enums.Difficulty diff) {
         if (diff == Enums.Difficulty.Easy) {
-            return (Enums.Difficulty.Easy.ordinal() - 3) * scalefactorTowerCost;
+            return (Enums.Difficulty.Easy.ordinal() - 1) * scalefactorTowerCost;
         }
         return diff == Enums.Difficulty.Medium ? (Enums.Difficulty.Medium.ordinal() + 1)
                 * scalefactorTowerCost
