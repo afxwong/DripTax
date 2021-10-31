@@ -51,12 +51,6 @@ public class GameScreen {
         return infoPanel;
     }
 
-    private void startGame() {
-        // Remove startButton
-        clickableAnchorPane.getChildren().remove(1);
-        // Add cars movement functionality here
-    }
-
     public Scene getGameScene() {
         // root pane that has all panes stacked on it
         StackPane root = new StackPane();
@@ -101,14 +95,6 @@ public class GameScreen {
         // Tower hotbar at bottom of screen
         // HotbarComponent towerHotbar = new HotbarComponent();
         //clickableAnchorPane.getChildren().add(towerHotbar);
-
-        // Start Button
-        Button startButton = new Button();
-        startButton.setText("Start Game");
-        startButton.setMinSize(100, 50);
-        startButton.setLayoutX(450);
-        startButton.setOnAction(e -> {startGame();});
-        clickableAnchorPane.getChildren().add(startButton);
 
         // populate root and base layers
         baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl);
