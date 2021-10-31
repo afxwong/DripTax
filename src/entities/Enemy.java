@@ -35,7 +35,7 @@ public class Enemy {
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
         this.transition.setDuration(Duration.seconds(5));
-        this.enemysprite = new ImageView(new Image("resources/arrow.png"));
+        this.enemysprite = new ImageView(new Image("resources/aircar2.png"));
         this.enemysprite.setX(x);
         this.enemysprite.setY(y);
         this.transition.setCycleCount(1);
@@ -49,7 +49,7 @@ public class Enemy {
             System.out.println(GameConfig.getTowerhealth());
             GameConfig.setTowerhealth(GameConfig.getTowerhealth() - GameConfig.getTowerDamage());
             this.gameScreen.updateHealth();
-            this.enemysprite.setVisible(false);
+            this.enemysprite.setVisible(true);
         });
 
         // will be for checking health

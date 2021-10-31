@@ -31,7 +31,8 @@ public class GameScreen {
     private static AnchorPane clickableAnchorPane;
     private static InfoPanel infoPanel;
 
-    private Enemy enemy;
+    private Enemy enemy_Top;
+    private Enemy enemy_Bottom;
 
     public Button getToendscreen() {
         return toendscreen;
@@ -97,8 +98,12 @@ public class GameScreen {
         // HotbarComponent towerHotbar = new HotbarComponent();
         //clickableAnchorPane.getChildren().add(towerHotbar);
 
+        enemy_Top = new Enemy(0, 0, 820, 190, 0, this);
+        enemy_Bottom = new Enemy(0, 0, 820, 290, 0, this);
+        clickableAnchorPane.getChildren().addAll(enemy_Top.getEnemysprite(), enemy_Bottom.getEnemysprite());
+
         // populate root and base layers
-        baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl);
+        baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl, clickableAnchorPane);
 
         // add button to end screen
         this.toendscreen = new Button("Proceed to End Screen");
@@ -107,16 +112,16 @@ public class GameScreen {
 
         // enemy pane
 //      AnchorPane enemypane = new AnchorPane();
-        enemy = new Enemy(0,0,820,190,0, this);
-        clickableAnchorPane.getChildren().addAll(enemy.getEnemysprite());
 
-        root.getChildren().addAll(baselayer, clickableAnchorPane, this.toendscreen, this.startgame);
+
+        root.getChildren().addAll(baselayer, this.toendscreen, this.startgame);
         return new Scene(root, this.width, this.height);
     }
 
     private void startGame() {
         this.startgame.setVisible(false);
-        enemy.play();
+        enemy_Top.play();
+        enemy_Bottom.play();
     }
 
     public void updateHealth() {
