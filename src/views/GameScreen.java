@@ -25,6 +25,7 @@ public class GameScreen {
     private final int arrowsetspacing = 55;
     private Button toendscreen;
     private Button startgame;
+    private Label healthlbl;
     private int width;
     private int height;
     private static AnchorPane clickableAnchorPane;
@@ -66,9 +67,9 @@ public class GameScreen {
         )));
 
         // Health label in top left
-        Label healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getTowerhealth()));
-        healthlbl.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
-        healthlbl.setPadding(new Insets(5, 5, 5, 5));
+        this.healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getTowerhealth()));
+        this.healthlbl.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
+        this.healthlbl.setPadding(new Insets(5, 5, 5, 5));
 
         // Directional arrows for lanes
         VBox imageboxes = new VBox();
@@ -106,7 +107,7 @@ public class GameScreen {
 
         // enemy pane
 //      AnchorPane enemypane = new AnchorPane();
-        enemy = new Enemy(0,0,820,190,0);
+        enemy = new Enemy(0,0,820,190,0, this);
         clickableAnchorPane.getChildren().addAll(enemy.getEnemysprite());
 
         root.getChildren().addAll(baselayer, clickableAnchorPane, this.toendscreen, this.startgame);
@@ -116,5 +117,9 @@ public class GameScreen {
     private void startGame() {
         this.startgame.setVisible(false);
         enemy.play();
+    }
+
+    public void updateHealth() {
+        this.healthlbl.setText(String.format("Wall Health: %s", GameConfig.getTowerhealth()));
     }
 }
