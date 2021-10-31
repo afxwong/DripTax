@@ -2,6 +2,9 @@ package views;
 
 import components.InfoPanel;
 import components.TowerGrid;
+import entities.Enemy;
+import javafx.animation.Animation;
+import javafx.animation.RotateTransition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,6 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import resources.GameConfig;
 
 public class GameScreen {
@@ -17,10 +24,13 @@ public class GameScreen {
     private final int arrowsetY = 190;
     private final int arrowsetspacing = 55;
     private Button toendscreen;
+    private Button startgame;
     private int width;
     private int height;
     private static AnchorPane clickableAnchorPane;
     private static InfoPanel infoPanel;
+
+    private Enemy enemy;
 
     public Button getToendscreen() {
         return toendscreen;
@@ -70,6 +80,14 @@ public class GameScreen {
             imageboxes.getChildren().add(imageView);
         }
 
+        // Start Button
+        this.startgame = new Button();
+        this.startgame.setText("Start Game");
+        this.startgame.setMinSize(100, 50);
+        this.startgame.setLayoutX(450);
+        this.startgame.setLayoutY(0);
+        this.startgame.setOnAction(e -> startGame());
+
         // add grid
         TowerGrid towergrid = new TowerGrid();
         clickableAnchorPane.getChildren().add(towergrid);
@@ -86,7 +104,17 @@ public class GameScreen {
         this.toendscreen.setVisible(false);
         // TODO: make this button visible when game ends
 
-        root.getChildren().addAll(baselayer, clickableAnchorPane, this.toendscreen);
+        // enemy pane
+//      AnchorPane enemypane = new AnchorPane();
+        enemy = new Enemy(0,0,820,190,0);
+        clickableAnchorPane.getChildren().addAll(enemy.getEnemysprite());
+
+        root.getChildren().addAll(baselayer, clickableAnchorPane, this.toendscreen, this.startgame);
         return new Scene(root, this.width, this.height);
+    }
+
+    private void startGame() {
+        this.startgame.setVisible(false);
+        enemy.play();
     }
 }
