@@ -3,8 +3,6 @@ package views;
 import components.InfoPanel;
 import components.TowerGrid;
 import entities.Enemy;
-import javafx.animation.Animation;
-import javafx.animation.RotateTransition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,11 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
-import javafx.util.Duration;
+import resources.Enums.Element;
 import resources.GameConfig;
+import java.util.Random;
 
 public class GameScreen {
 
@@ -70,7 +66,7 @@ public class GameScreen {
         )));
 
         // Health label in top left
-        this.healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getTowerhealth()));
+        this.healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getTowerHealth()));
         this.healthlbl.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
         this.healthlbl.setPadding(new Insets(5, 5, 5, 5));
 
@@ -100,8 +96,8 @@ public class GameScreen {
         // HotbarComponent towerHotbar = new HotbarComponent();
         //clickableAnchorPane.getChildren().add(towerHotbar);
 
-        enemy_Top = new Enemy(0, 0, 820, 190, 0, this);
-        enemy_Bottom = new Enemy(0, 0, 820, 290, 0, this);
+        enemy_Top = new Enemy(randomElement(), 1, 1, 820, 190, 5, this);
+        enemy_Bottom = new Enemy(randomElement(), 1, 1, 820, 290, 5, this);
         enemyAnchorPane.getChildren().addAll(enemy_Top.getEnemysprite(), enemy_Bottom.getEnemysprite());
 
         // populate root and base layers
@@ -124,6 +120,18 @@ public class GameScreen {
     }
 
     public void updateHealth() {
-        this.healthlbl.setText(String.format("Wall Health: %s", GameConfig.getTowerhealth()));
+        this.healthlbl.setText(String.format("Wall Health: %s", GameConfig.getTowerHealth()));
+    }
+
+    private Element randomElement() {
+        Random rn = new Random();
+        int randomInt = rn.nextInt(4) + 1;
+        switch (randomInt) {
+            case 0: return Element.Fire;
+            case 1: return Element.Water;
+            case 2: return Element.Air;
+            case 3: return Element.Ground;
+            default: return null;
+        }
     }
 }

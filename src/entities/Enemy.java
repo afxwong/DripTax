@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import resources.Enums.Element;
 import resources.GameConfig;
 import views.GameScreen;
 
@@ -15,7 +16,7 @@ public class Enemy {
     private int damage;
     private int x;
     private int y;
-    private int speed;
+    private double speed;
     private GameScreen gameScreen;
 
     public ImageView getEnemysprite() {
@@ -25,7 +26,7 @@ public class Enemy {
     private ImageView enemysprite;
     private TranslateTransition transition;
 
-    public Enemy(int health, int damage, int x, int y, int speed, GameScreen gameScreen) {
+    public Enemy(Element ele, int health, int damage, int x, int y, double speed, GameScreen gameScreen) {
         this.health = health;
         this.damage = damage;
         this.x = x;
@@ -34,8 +35,8 @@ public class Enemy {
         this.gameScreen = gameScreen;
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
-        this.transition.setDuration(Duration.seconds(5));
-        this.enemysprite = new ImageView(new Image("resources/airCar.png", 50, 50, false, false));
+        this.transition.setDuration(Duration.seconds(speed));
+        this.enemysprite = new ImageView(new Image("resources/" + ele.toString() + "Car.png", 50, 50, false, false));
         this.enemysprite.setX(x);
         this.enemysprite.setY(y);
         this.transition.setCycleCount(1);
@@ -46,8 +47,8 @@ public class Enemy {
         this.transition.play();
         Timer timer = new Timer();
         this.transition.setOnFinished(actionEvent -> {
-            System.out.println(GameConfig.getTowerhealth());
-            GameConfig.setTowerhealth(GameConfig.getTowerhealth() - GameConfig.getTowerDamage());
+            System.out.println(GameConfig.getTowerHealth());
+            GameConfig.setTowerHealth(GameConfig.getTowerHealth() - GameConfig.getEnemyDamage() * damage);
             this.gameScreen.updateHealth();
             this.enemysprite.setVisible(false);
         });
