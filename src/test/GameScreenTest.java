@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GameScreenTest {
     @org.junit.jupiter.api.Test
-    void TestRandomElement() {
+    void testRandomElement() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
@@ -17,7 +17,7 @@ public class GameScreenTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestGameOver() {
+    void testGameOver() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
@@ -27,7 +27,7 @@ public class GameScreenTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestGameContinue() {
+    void testGameContinue() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();

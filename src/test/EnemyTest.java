@@ -9,18 +9,19 @@ import static resources.Enums.Element.Fire;
 
 public class EnemyTest {
     @org.junit.jupiter.api.Test
-    void TestPlay() {
+    void testPlay() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
         Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen);
         int initialHealth = GameConfig.getMonumentHealth();
         testEnemy.play();
-        assertEquals(GameConfig.getMonumentHealth(), initialHealth - GameConfig.getEnemyDamage() * testEnemy.getDamage());
+        assertEquals(GameConfig.getMonumentHealth(),
+                initialHealth - GameConfig.getEnemyDamage() * testEnemy.getDamage());
     }
 
     @org.junit.jupiter.api.Test
-    void TestDamage() {
+    void testDamage() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
@@ -29,7 +30,7 @@ public class EnemyTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestElement() {
+    void testElement() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
@@ -38,7 +39,7 @@ public class EnemyTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestHealth() {
+    void testHealth() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
@@ -47,7 +48,7 @@ public class EnemyTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestSpeed() {
+    void testSpeed() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
@@ -56,7 +57,7 @@ public class EnemyTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestX() {
+    void testX() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
@@ -65,7 +66,7 @@ public class EnemyTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestY() {
+    void testY() {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
