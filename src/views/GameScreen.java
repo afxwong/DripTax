@@ -126,7 +126,7 @@ public class GameScreen {
         this.healthlbl.setText(String.format("Wall Health: %s", GameConfig.getMonumentHealth()));
     }
 
-    private Element randomElement() {
+    public Element randomElement() {
         Random rn = new Random();
         int randomInt = rn.nextInt(4);
         switch (randomInt) {
