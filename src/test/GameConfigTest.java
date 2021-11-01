@@ -19,9 +19,9 @@ public class GameConfigTest {
     void testCalculateTowerHealth() {
         GameConfig.setDifficulty(Enums.Difficulty.Easy);
         GameConfig config = new GameConfig();
-        assertEquals(config.calculateTowerHealth(1), 1000);
-        assertEquals(config.calculateTowerHealth(2), 2000);
-        assertEquals(config.calculateTowerHealth(3), 3000);
+        assertEquals(config.calculateMonumentHealth(1), 1000);
+        assertEquals(config.calculateMonumentHealth(2), 2000);
+        assertEquals(config.calculateMonumentHealth(3), 3000);
     }
 
     @org.junit.jupiter.api.Test
