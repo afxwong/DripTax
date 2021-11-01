@@ -66,7 +66,7 @@ public class GameScreen {
         )));
 
         // Health label in top left
-        this.healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getTowerHealth()));
+        this.healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getMonumentHealth()));
         this.healthlbl.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
         this.healthlbl.setPadding(new Insets(5, 5, 5, 5));
 
@@ -120,7 +120,10 @@ public class GameScreen {
     }
 
     public void updateHealth() {
-        this.healthlbl.setText(String.format("Wall Health: %s", GameConfig.getTowerHealth()));
+        if (GameConfig.getMonumentHealth() <= 0) {
+            this.toendscreen.setVisible(true);
+        }
+        this.healthlbl.setText(String.format("Wall Health: %s", GameConfig.getMonumentHealth()));
     }
 
     private Element randomElement() {

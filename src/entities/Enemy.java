@@ -47,8 +47,8 @@ public class Enemy {
         this.transition.play();
         Timer timer = new Timer();
         this.transition.setOnFinished(actionEvent -> {
-            System.out.println(GameConfig.getTowerHealth());
-            GameConfig.setTowerHealth(GameConfig.getTowerHealth() - GameConfig.getEnemyDamage() * damage);
+            System.out.println(GameConfig.getMonumentHealth());
+            GameConfig.setMonumentHealth(GameConfig.getMonumentHealth() - GameConfig.getEnemyDamage() * damage);
             this.gameScreen.updateHealth();
             this.enemysprite.setVisible(false);
         });

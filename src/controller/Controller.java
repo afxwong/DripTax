@@ -111,7 +111,7 @@ public class Controller extends Application {
         mainwindow.show();
     }
 
-    private void initializeEndScreen() {
+    public void initializeEndScreen() {
         this.endScreen = new EndScreen(this.gamewidth, this.gameheight);
         mainwindow.setScene(this.endScreen.getEndScene());
         this.endScreen.getExitbutton().setOnAction(e -> System.exit(0));

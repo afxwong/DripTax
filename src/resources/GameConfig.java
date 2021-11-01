@@ -7,7 +7,7 @@ public class GameConfig {
     private static int scalefactorTowerCost = 10;
     private static int scalefactorTowerDamage = 50;
     private int difford;
-    private static int towerHealth;
+    private static int monumentHealth;
     private static int towerCost;
     private static int enemyDamage;
     private static int frune;
@@ -18,7 +18,7 @@ public class GameConfig {
 
     public GameConfig() {
         this.difford = difficulty.ordinal() + 1;
-        towerHealth = calculateTowerHealth(difford);
+        monumentHealth = calculateTowerHealth(difford);
         frune = calculateRuneCount(difford);
         wrune = calculateRuneCount(difford);
         grune = calculateRuneCount(difford);
@@ -51,12 +51,12 @@ public class GameConfig {
         return enemyDamage;
     }
 
-    public static int getTowerHealth() {
-        return towerHealth;
+    public static int getMonumentHealth() {
+        return monumentHealth;
     }
 
-    public static void setTowerHealth(int towerHealth) {
-        GameConfig.towerHealth = towerHealth;
+    public static void setMonumentHealth(int monumentHealth) {
+        GameConfig.monumentHealth = monumentHealth;
     }
 
     public static int getFrune() {
