@@ -129,6 +129,10 @@ public class GameConfig {
     }
 
     public int calculateEnemyDamage(int difford) {
-        return difford * scaleFactorEnemyDamage;
+        if (difficulty == Enums.Difficulty.Easy) {
+            return (difford - 2) * scaleFactorEnemyDamage;
+        }
+        return difficulty == Enums.Difficulty.Medium ? difford * scaleFactorTowerCost
+                : (difford + 2) * scaleFactorEnemyDamage;
     }
 }
