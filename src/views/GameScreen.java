@@ -30,6 +30,7 @@ public class GameScreen {
     private int height;
     private static AnchorPane clickableAnchorPane;
     private static InfoPanel infoPanel;
+    private static AnchorPane enemyAnchorPane;
 
     private Enemy enemy_Top;
     private Enemy enemy_Bottom;
@@ -43,6 +44,7 @@ public class GameScreen {
         this.height = height;
         clickableAnchorPane = new AnchorPane();
         infoPanel = new InfoPanel();
+        enemyAnchorPane = new AnchorPane();
     }
 
     public static AnchorPane getClickableAnchorPane() {
@@ -100,10 +102,10 @@ public class GameScreen {
 
         enemy_Top = new Enemy(0, 0, 820, 190, 0, this);
         enemy_Bottom = new Enemy(0, 0, 820, 290, 0, this);
-        clickableAnchorPane.getChildren().addAll(enemy_Top.getEnemysprite(), enemy_Bottom.getEnemysprite());
+        enemyAnchorPane.getChildren().addAll(enemy_Top.getEnemysprite(), enemy_Bottom.getEnemysprite());
 
         // populate root and base layers
-        baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl, clickableAnchorPane);
+        baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl, enemyAnchorPane, clickableAnchorPane);
 
         // add button to end screen
         this.toendscreen = new Button("Proceed to End Screen");
