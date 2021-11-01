@@ -98,10 +98,6 @@ public class GameScreen {
         TowerGrid towergrid = new TowerGrid();
         clickableAnchorPane.getChildren().add(towergrid);
 
-        // Tower hotbar at bottom of screen
-        // HotbarComponent towerHotbar = new HotbarComponent();
-        //clickableAnchorPane.getChildren().add(towerHotbar);
-
         for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
             Enemy top = new Enemy(randomElement(), 1, 5, 820, 190, 5, this);
             Enemy bottom = new Enemy(randomElement(), 1, 5, 820, 290, 5, this);
