@@ -2,10 +2,10 @@ package resources;
 
 public class GameConfig {
 
-    private final int scalefactorHealth = 1000;
-    private final int scalefactorrune = 100;
-    private static int scalefactorTowerCost = 10;
-    private static int scalefactorTowerDamage = 50;
+    private final int scaleFactorHealth = 1000;
+    private final int scaleFactorRune = 100;
+    private static int scaleFactorTowerCost = 10;
+    private static int scaleFactorEnemyDamage = 50;
     private int difford;
     private static int monumentHealth;
     private static int towerCost;
@@ -18,13 +18,13 @@ public class GameConfig {
 
     public GameConfig() {
         this.difford = difficulty.ordinal() + 1;
-        monumentHealth = calculateTowerHealth(difford);
+        monumentHealth = calculateMonumentHealth(difford);
         frune = calculateRuneCount(difford);
         wrune = calculateRuneCount(difford);
         grune = calculateRuneCount(difford);
         arune = calculateRuneCount(difford);
         towerCost = calculateTowerCost(difford);
-        enemyDamage = calculateTowerDamage(difford);
+        enemyDamage = calculateEnemyDamage(difford);
     }
 
     public static int getEnemyCount() {
@@ -43,12 +43,12 @@ public class GameConfig {
         GameConfig.towerCost = towerCost;
     }
 
-    public static int getScalefactorTowerDamage() {
-        return scalefactorTowerDamage;
+    public static int getScaleFactorEnemyDamage() {
+        return scaleFactorEnemyDamage;
     }
 
-    public static void setScalefactorTowerDamage(int scalefactorTowerDamage) {
-        GameConfig.scalefactorTowerDamage = scalefactorTowerDamage;
+    public static void setScaleFactorEnemyDamage(int scaleFactorEnemyDamage) {
+        GameConfig.scaleFactorEnemyDamage = scaleFactorEnemyDamage;
     }
 
     public static int getEnemyDamage() {
@@ -104,44 +104,31 @@ public class GameConfig {
     }
 
     public int calculateRuneCount(int difford) {
-        return difford * this.scalefactorrune;
+        return difford * this.scaleFactorRune;
     }
 
-    public int calculateTowerHealth(int difford) {
-        return difford * this.scalefactorHealth;
+    public int calculateMonumentHealth(int difford) {
+        return difford * this.scaleFactorHealth;
     }
 
     public int calculateTowerCost(int difford) {
         if (difficulty == Enums.Difficulty.Easy) {
-            return (difford - 2) * scalefactorTowerCost;
+            return (difford - 2) * scaleFactorTowerCost;
         }
-        return difficulty == Enums.Difficulty.Medium ? difford * scalefactorTowerCost
-                : (difford + 2) * scalefactorTowerCost;
+        return difficulty == Enums.Difficulty.Medium ? difford * scaleFactorTowerCost
+                : (difford + 2) * scaleFactorTowerCost;
     }
 
     public static int calculateTowerCost(Enums.Difficulty diff) {
         if (diff == Enums.Difficulty.Easy) {
-            return (Enums.Difficulty.Easy.ordinal() - 1) * scalefactorTowerCost;
+            return (Enums.Difficulty.Easy.ordinal() - 1) * scaleFactorTowerCost;
         }
         return diff == Enums.Difficulty.Medium ? (Enums.Difficulty.Medium.ordinal() + 1)
-                * scalefactorTowerCost
-                : (Enums.Difficulty.Hard.ordinal() + 3) * scalefactorTowerCost;
+                * scaleFactorTowerCost
+                : (Enums.Difficulty.Hard.ordinal() + 3) * scaleFactorTowerCost;
     }
 
-    public int calculateTowerDamage(int difford) {
-        if (difficulty == Enums.Difficulty.Easy) {
-            return (difford - 2) * scalefactorTowerDamage;
-        }
-        return difficulty == Enums.Difficulty.Medium ? difford * scalefactorTowerCost
-                : (difford + 2) * scalefactorTowerDamage;
-    }
-
-    public static int calculateTowerDamage(Enums.Difficulty diff) {
-        if (diff == Enums.Difficulty.Easy) {
-            return (Enums.Difficulty.Easy.ordinal() - 1) * scalefactorTowerDamage;
-        }
-        return diff == Enums.Difficulty.Medium ? (Enums.Difficulty.Medium.ordinal() + 1)
-                * scalefactorTowerDamage
-                : (Enums.Difficulty.Hard.ordinal() + 3) * scalefactorTowerDamage;
+    public int calculateEnemyDamage(int difford) {
+        return difford * scaleFactorEnemyDamage;
     }
 }
