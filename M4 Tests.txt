@@ -11,3 +11,5 @@ TestY: tests that constructor correctly initialized the y field in the Enemy cla
 
 GameScreenTest class:
 TestRandomElement: test to ensure functionality of the randomElement method in GameScreen (i.e. that it does not produce a null result)
+TestGameOver: test if the game over button is displayed (game ends) when the monument reaches 0 health
+TestCameContinue: test if the game over button is not displayed when the monument's health is > 0
