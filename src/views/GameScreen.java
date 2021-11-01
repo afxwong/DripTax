@@ -112,9 +112,6 @@ public class GameScreen {
         this.toendscreen.setVisible(false);
         // TODO: make this button visible when game ends
 
-        // enemy pane
-//      AnchorPane enemypane = new AnchorPane();
-
 
         root.getChildren().addAll(baselayer, this.toendscreen, this.startgame);
         return new Scene(root, this.width, this.height);

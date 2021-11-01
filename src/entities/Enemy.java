@@ -49,7 +49,7 @@ public class Enemy {
             System.out.println(GameConfig.getTowerhealth());
             GameConfig.setTowerhealth(GameConfig.getTowerhealth() - GameConfig.getTowerDamage());
             this.gameScreen.updateHealth();
-            this.enemysprite.setVisible(true);
+            this.enemysprite.setVisible(false);
         });
 
         // will be for checking health
