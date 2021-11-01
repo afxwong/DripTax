@@ -12,6 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Enemy {
+    private Element element;
     private int health;
     private int damage;
     private int x;
@@ -28,6 +29,7 @@ public class Enemy {
 
     public Enemy(Element ele, int health, int damage, int x, int y,
                  double traveltime, GameScreen gameScreen) {
+        this.element = ele;
         this.health = health;
         this.damage = damage;
         this.x = x;
@@ -69,5 +71,33 @@ public class Enemy {
             }
         };
         timer.scheduleAtFixedRate(task, 0, 100);
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getEnemyDamage() {
+        return damage;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 }
