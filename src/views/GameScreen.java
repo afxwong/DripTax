@@ -12,7 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import resources.Enums.Element;
 import resources.GameConfig;
+
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameScreen {
 
@@ -28,8 +32,8 @@ public class GameScreen {
     private static InfoPanel infoPanel;
     private static AnchorPane enemyAnchorPane;
 
-    private Enemy enemy_Top;
-    private Enemy enemy_Bottom;
+    private ArrayList<Enemy> enemyTop;
+    private ArrayList<Enemy> enemyBottom;
 
     public Button getToendscreen() {
         return toendscreen;
@@ -38,6 +42,8 @@ public class GameScreen {
     public GameScreen(int width, int height) {
         this.width = width;
         this.height = height;
+        this.enemyTop = new ArrayList<>();
+        this.enemyBottom = new ArrayList<>();
         clickableAnchorPane = new AnchorPane();
         infoPanel = new InfoPanel();
         enemyAnchorPane = new AnchorPane();
@@ -66,7 +72,8 @@ public class GameScreen {
         )));
 
         // Health label in top left
-        this.healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getMonumentHealth()));
+        this.healthlbl = new Label(String.format("Wall Health: %s",
+                GameConfig.getMonumentHealth()));
         this.healthlbl.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
         this.healthlbl.setPadding(new Insets(5, 5, 5, 5));
 
@@ -92,21 +99,21 @@ public class GameScreen {
         TowerGrid towergrid = new TowerGrid();
         clickableAnchorPane.getChildren().add(towergrid);
 
-        // Tower hotbar at bottom of screen
-        // HotbarComponent towerHotbar = new HotbarComponent();
-        //clickableAnchorPane.getChildren().add(towerHotbar);
-
-        enemy_Top = new Enemy(randomElement(), 1, 10, 820, 190, 5, this);
-        enemy_Bottom = new Enemy(randomElement(), 1, 10, 820, 290, 5, this);
-        enemyAnchorPane.getChildren().addAll(enemy_Top.getEnemysprite(), enemy_Bottom.getEnemysprite());
+        for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
+            Enemy top = new Enemy(randomElement(), 1, 5, 820, 190, 5, this);
+            Enemy bottom = new Enemy(randomElement(), 1, 5, 820, 290, 5, this);
+            this.enemyTop.add(top);
+            this.enemyBottom.add(bottom);
+            enemyAnchorPane.getChildren().addAll(top.getEnemysprite(), bottom.getEnemysprite());
+        }
 
         // populate root and base layers
-        baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl, enemyAnchorPane, clickableAnchorPane);
+        baselayer.getChildren().addAll(infoPanel, imageboxes,
+                healthlbl, enemyAnchorPane, clickableAnchorPane);
 
         // add button to end screen
         this.toendscreen = new Button("Proceed to End Screen");
         this.toendscreen.setVisible(false);
-        // TODO: make this button visible when game ends
 
 
         root.getChildren().addAll(baselayer, this.toendscreen, this.startgame);
@@ -115,8 +122,22 @@ public class GameScreen {
 
     private void startGame() {
         this.startgame.setVisible(false);
-        enemy_Top.play();
-        enemy_Bottom.play();
+        Timer timer = new Timer();
+        final int[] i = {0};
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (i[0] < GameConfig.getEnemyCount() || GameConfig.getMonumentHealth() > 0) {
+                    enemyTop.get(i[0]).play();
+                    enemyBottom.get(i[0]).play();
+                    i[0]++;
+                } else {
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        };
+        timer.schedule(timerTask, 0, 2000);
     }
 
     public void updateHealth() {
@@ -130,11 +151,11 @@ public class GameScreen {
         Random rn = new Random();
         int randomInt = rn.nextInt(4);
         switch (randomInt) {
-            case 0: return Element.Fire;
-            case 1: return Element.Water;
-            case 2: return Element.Air;
-            case 3: return Element.Ground;
-            default: return null;
+        case 0: return Element.Fire;
+        case 1: return Element.Water;
+        case 2: return Element.Air;
+        case 3: return Element.Ground;
+        default: return null;
         }
     }
 }
