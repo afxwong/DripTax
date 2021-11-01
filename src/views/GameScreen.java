@@ -32,8 +32,8 @@ public class GameScreen {
     private static InfoPanel infoPanel;
     private static AnchorPane enemyAnchorPane;
 
-    private ArrayList<Enemy> enemy_Top;
-    private ArrayList<Enemy> enemy_Bottom;
+    private ArrayList<Enemy> enemyTop;
+    private ArrayList<Enemy> enemyBottom;
 
     public Button getToendscreen() {
         return toendscreen;
@@ -42,8 +42,8 @@ public class GameScreen {
     public GameScreen(int width, int height) {
         this.width = width;
         this.height = height;
-        this.enemy_Top = new ArrayList<>();
-        this.enemy_Bottom = new ArrayList<>();
+        this.enemyTop = new ArrayList<>();
+        this.enemyBottom = new ArrayList<>();
         clickableAnchorPane = new AnchorPane();
         infoPanel = new InfoPanel();
         enemyAnchorPane = new AnchorPane();
@@ -72,7 +72,8 @@ public class GameScreen {
         )));
 
         // Health label in top left
-        this.healthlbl = new Label(String.format("Wall Health: %s", GameConfig.getMonumentHealth()));
+        this.healthlbl = new Label(String.format("Wall Health: %s",
+                GameConfig.getMonumentHealth()));
         this.healthlbl.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
         this.healthlbl.setPadding(new Insets(5, 5, 5, 5));
 
@@ -101,13 +102,14 @@ public class GameScreen {
         for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
             Enemy top = new Enemy(randomElement(), 1, 5, 820, 190, 5, this);
             Enemy bottom = new Enemy(randomElement(), 1, 5, 820, 290, 5, this);
-            this.enemy_Top.add(top);
-            this.enemy_Bottom.add(bottom);
+            this.enemyTop.add(top);
+            this.enemyBottom.add(bottom);
             enemyAnchorPane.getChildren().addAll(top.getEnemysprite(), bottom.getEnemysprite());
         }
 
         // populate root and base layers
-        baselayer.getChildren().addAll(infoPanel, imageboxes, healthlbl, enemyAnchorPane, clickableAnchorPane);
+        baselayer.getChildren().addAll(infoPanel, imageboxes,
+                healthlbl, enemyAnchorPane, clickableAnchorPane);
 
         // add button to end screen
         this.toendscreen = new Button("Proceed to End Screen");
@@ -126,8 +128,8 @@ public class GameScreen {
             @Override
             public void run() {
                 if (i[0] < GameConfig.getEnemyCount() || GameConfig.getMonumentHealth() > 0) {
-                    enemy_Top.get(i[0]).play();
-                    enemy_Bottom.get(i[0]).play();
+                    enemyTop.get(i[0]).play();
+                    enemyBottom.get(i[0]).play();
                     i[0]++;
                 } else {
                     timer.cancel();
@@ -149,11 +151,11 @@ public class GameScreen {
         Random rn = new Random();
         int randomInt = rn.nextInt(4);
         switch (randomInt) {
-            case 0: return Element.Fire;
-            case 1: return Element.Water;
-            case 2: return Element.Air;
-            case 3: return Element.Ground;
-            default: return null;
+        case 0: return Element.Fire;
+        case 1: return Element.Water;
+        case 2: return Element.Air;
+        case 3: return Element.Ground;
+        default: return null;
         }
     }
 }
