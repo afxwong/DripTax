@@ -36,7 +36,7 @@ public class Enemy {
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
         this.transition.setDuration(Duration.seconds(speed));
-        this.enemysprite = new ImageView(new Image("resources/" + ele.toString() + "Car.png", 50, 50, false, false));
+        this.enemysprite = new ImageView(new Image("resources/" + ele.toString().toLowerCase() + "Car.png", 50, 50, false, false));
         this.enemysprite.setX(x);
         this.enemysprite.setY(y);
         this.transition.setCycleCount(1);

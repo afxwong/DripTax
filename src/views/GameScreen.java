@@ -96,8 +96,8 @@ public class GameScreen {
         // HotbarComponent towerHotbar = new HotbarComponent();
         //clickableAnchorPane.getChildren().add(towerHotbar);
 
-        enemy_Top = new Enemy(randomElement(), 1, 1, 820, 190, 5, this);
-        enemy_Bottom = new Enemy(randomElement(), 1, 1, 820, 290, 5, this);
+        enemy_Top = new Enemy(randomElement(), 1, 5, 820, 190, 5, this);
+        enemy_Bottom = new Enemy(randomElement(), 1, 5, 820, 290, 5, this);
         enemyAnchorPane.getChildren().addAll(enemy_Top.getEnemysprite(), enemy_Bottom.getEnemysprite());
 
         // populate root and base layers
@@ -125,7 +125,7 @@ public class GameScreen {
 
     private Element randomElement() {
         Random rn = new Random();
-        int randomInt = rn.nextInt(4) + 1;
+        int randomInt = rn.nextInt(4);
         switch (randomInt) {
             case 0: return Element.Fire;
             case 1: return Element.Water;
