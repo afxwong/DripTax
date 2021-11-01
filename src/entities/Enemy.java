@@ -26,16 +26,16 @@ public class Enemy {
     private ImageView enemysprite;
     private TranslateTransition transition;
 
-    public Enemy(Element ele, int health, int damage, int x, int y, double speed, GameScreen gameScreen) {
+    public Enemy(Element ele, int health, int damage, int x, int y, double traveltime, GameScreen gameScreen) {
         this.health = health;
         this.damage = damage;
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.speed = traveltime;
         this.gameScreen = gameScreen;
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
-        this.transition.setDuration(Duration.seconds(speed));
+        this.transition.setDuration(Duration.seconds(traveltime));
         this.enemysprite = new ImageView(new Image("resources/" + ele.toString().toLowerCase() + "Car.png", 50, 50, false, false));
         this.enemysprite.setX(x);
         this.enemysprite.setY(y);

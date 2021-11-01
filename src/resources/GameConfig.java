@@ -27,6 +27,10 @@ public class GameConfig {
         enemyDamage = calculateTowerDamage(difford);
     }
 
+    public static int getEnemyCount() {
+        return difficulty == Enums.Difficulty.Easy ? 10 : difficulty == Enums.Difficulty.Medium ? 15 : 20;
+    }
+
     public int getDifford() {
         return difford;
     }
