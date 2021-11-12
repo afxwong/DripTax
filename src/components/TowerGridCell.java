@@ -1,11 +1,19 @@
 package components;
 
+import entities.Enemy;
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import entities.Player;
 import entities.Tower;
+import javafx.util.Duration;
 import resources.Enums.Element;
 import javafx.scene.image.ImageView;
+import resources.GameConfig;
+import views.GameScreen;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TowerGridCell extends Pane {
 
@@ -13,6 +21,7 @@ public class TowerGridCell extends Pane {
     private boolean selected;
     private boolean hasTower;
     private Tower tower;
+    private ImageView projectile;
 
     public TowerGridCell(int i, int j) {
         this.gridIndex = new int[] {i, j};
@@ -76,7 +85,10 @@ public class TowerGridCell extends Pane {
             Element towerElem = tower.getElement();
             String pngName = "resources/" + towerElem.toString().toLowerCase() + "Tower.png";
             ImageView towerPic = new ImageView(new Image(pngName, 40, 45, false, false));
+            this.projectile = new ImageView(new Image("resources/"
+                    + towerElem.toString().toLowerCase() + "Bullet.png", 40, 45, false, false));
             this.getChildren().add(towerPic);
+            startProjectiles();
         } else {
             // Shouldn't get here probably. Need to fix.
             System.out.println("Removed tower at Pane #"
@@ -93,5 +105,42 @@ public class TowerGridCell extends Pane {
 
     public boolean getHasTower() {
         return hasTower;
+    }
+
+    public void startProjectiles() {
+//        this.projectile.setX(this.getLayoutX());
+//        this.projectile.setY(this.getLayoutY());
+        TranslateTransition transition = new TranslateTransition();
+        this.getChildren().add(this.projectile);
+        double locationX = this.getLayoutX();
+//        transition.setFromX(this.getLayoutX());
+//        System.out.println(this.getLayoutX());
+//        System.out.println(this.getLayoutY());
+//        transition.setFromY(this.getLayoutY());
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                transition.setDuration(Duration.millis(100));
+                transition.setNode(projectile);
+                transition.setCycleCount(1);
+                Enemy target = GameScreen.enemyTop.get(0);
+                System.out.println(GameScreen.enemyTop.get(0));
+                System.out.println(target);
+                System.out.println(target.getTransition().getNode().getTranslateX());
+                double destinationX = GameScreen.calculateXPosition(
+                        target.getTransition().getNode().getTranslateX(), 820, locationX);
+                transition.setFromX(0);
+                transition.setFromY(0);
+                transition.setToX(destinationX);
+                transition.setToY(-50);
+                transition.play();
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 300);
+
+        transition.setOnFinished(actionEvent -> GameScreen.enemyTop.get(0)
+                .setHealth(GameScreen.enemyTop.get(0).getHealth() - GameScreen.enemyTop.get(0).getDamage()));
     }
 }

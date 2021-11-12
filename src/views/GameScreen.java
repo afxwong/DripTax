@@ -10,13 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import resources.Enums;
 import resources.Enums.Element;
 import resources.GameConfig;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class GameScreen {
 
@@ -31,9 +29,10 @@ public class GameScreen {
     private static AnchorPane clickableAnchorPane;
     private static InfoPanel infoPanel;
     private static AnchorPane enemyAnchorPane;
-
-    private ArrayList<Enemy> enemyTop;
-    private ArrayList<Enemy> enemyBottom;
+    public static List<Enemy> enemyTop;
+    public static List<Enemy> enemyBottom;
+    public static double offsetX;
+    public static double offsetY;
 
     public Button getToendscreen() {
         return toendscreen;
@@ -42,8 +41,8 @@ public class GameScreen {
     public GameScreen(int width, int height) {
         this.width = width;
         this.height = height;
-        this.enemyTop = new ArrayList<>();
-        this.enemyBottom = new ArrayList<>();
+        enemyTop = new LinkedList<>();
+        enemyBottom = new LinkedList<>();
         clickableAnchorPane = new AnchorPane();
         infoPanel = new InfoPanel();
         enemyAnchorPane = new AnchorPane();
@@ -98,12 +97,16 @@ public class GameScreen {
         // add grid
         TowerGrid towergrid = new TowerGrid();
         clickableAnchorPane.getChildren().add(towergrid);
+        offsetX = towergrid.getLayoutX();
+        offsetY = towergrid.getLayoutY();
 
         for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
-            Enemy top = new Enemy(randomElement(), 1, 5, 820, 190, 5, this);
-            Enemy bottom = new Enemy(randomElement(), 1, 5, 820, 290, 5, this);
-            this.enemyTop.add(top);
-            this.enemyBottom.add(bottom);
+            Enemy top = new Enemy(randomElement(), 50, 5, 820, 190, 10,
+                    this, Enums.Lane.Top, i);
+            Enemy bottom = new Enemy(randomElement(), 50, 5, 820, 290, 10,
+                    this, Enums.Lane.Bottom, i);
+            enemyTop.add(top);
+            enemyBottom.add(bottom);
             enemyAnchorPane.getChildren().addAll(top.getEnemysprite(), bottom.getEnemysprite());
         }
 
@@ -127,9 +130,11 @@ public class GameScreen {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                if (i[0] < GameConfig.getEnemyCount() || GameConfig.getMonumentHealth() > 0) {
+                if (i[0] < GameConfig.getEnemyCount()
+                        || GameConfig.getMonumentHealth() > 0) {
                     enemyTop.get(i[0]).play();
                     enemyBottom.get(i[0]).play();
+                    System.out.println("NOW RUNNING" + enemyTop.get(i[0]));
                     i[0]++;
                 } else {
                     timer.cancel();
@@ -157,5 +162,14 @@ public class GameScreen {
         case 3: return Element.Ground;
         default: return null;
         }
+    }
+
+    public static double calculateXPosition(double translatedX, double startEnemyX, double projectileOriginX) {
+        return startEnemyX + translatedX > projectileOriginX ? startEnemyX + translatedX - projectileOriginX - offsetX + 20
+                : (startEnemyX + translatedX - projectileOriginX - offsetX - 50) * -1;
+    }
+
+    public static double calculateYPosition(double projectileOriginY, double startY) {
+        return startY - projectileOriginY + 10;
     }
 }

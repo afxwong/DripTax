@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import resources.Enums;
 import resources.Enums.Element;
 import resources.GameConfig;
 import views.GameScreen;
@@ -13,22 +14,39 @@ import java.util.TimerTask;
 
 public class Enemy {
     private Element element;
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     private int health;
     private int damage;
     private int x;
     private int y;
+
+    public int getNumber() {
+        return number;
+    }
+
+    private int number;
     private double speed;
     private GameScreen gameScreen;
+    private Enums.Lane lane;
 
     public ImageView getEnemysprite() {
         return enemysprite;
     }
 
     private ImageView enemysprite;
+
+    public TranslateTransition getTransition() {
+        return transition;
+    }
+
     private TranslateTransition transition;
 
     public Enemy(Element ele, int health, int damage, int x, int y,
-                 double traveltime, GameScreen gameScreen) {
+                 double traveltime, GameScreen gameScreen, Enums.Lane lane, int number) {
         this.element = ele;
         this.health = health;
         this.damage = damage;
@@ -45,32 +63,48 @@ public class Enemy {
         this.enemysprite.setY(y);
         this.transition.setCycleCount(1);
         this.transition.setNode(this.enemysprite);
+        this.lane = lane;
+        this.number = number;
     }
 
     public void play() {
         this.transition.play();
         Timer timer = new Timer();
-        this.transition.setOnFinished(actionEvent -> {
-            System.out.println(GameConfig.getMonumentHealth());
-            GameConfig.setMonumentHealth(GameConfig.getMonumentHealth()
-                    - GameConfig.getEnemyDamage());
-            this.gameScreen.updateHealth();
-            this.enemysprite.setVisible(false);
-        });
 
         // will be for checking health
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (transition.currentTimeProperty().get().greaterThan(Duration.millis(10000))) {
+//                System.out.println(transition.getNode().getTranslateX());
+                if (health <= 0) {
                     transition.stop();
                     enemysprite.setVisible(false);
+                    if (lane == Enums.Lane.Top) {
+                        GameScreen.enemyTop.remove(0);
+                    } else {
+                        GameScreen.enemyBottom.remove(0);
+                    }
                     timer.cancel();
                     timer.purge();
                 }
             }
         };
         timer.scheduleAtFixedRate(task, 0, 100);
+
+        this.transition.setOnFinished(actionEvent -> {
+            if (lane == Enums.Lane.Top) {
+                GameScreen.enemyTop.remove(0);
+            } else {
+                GameScreen.enemyBottom.remove(0);
+            }
+            GameConfig.setMonumentHealth(GameConfig.getMonumentHealth()
+                    - GameConfig.getEnemyDamage());
+            this.gameScreen.updateHealth();
+            this.enemysprite.setVisible(false);
+            task.cancel();
+            timer.cancel();
+            timer.purge();
+        });
     }
 
     public int getDamage() {

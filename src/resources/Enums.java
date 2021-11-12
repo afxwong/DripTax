@@ -13,4 +13,9 @@ public class Enums {
         Ground,
         Air
     }
+
+    public enum Lane {
+        Top,
+        Bottom
+    }
 }
