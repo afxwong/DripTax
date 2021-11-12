@@ -31,8 +31,11 @@ public class GameScreen {
     private static AnchorPane enemyAnchorPane;
     public static List<Enemy> enemyTop;
     public static List<Enemy> enemyBottom;
+    public static List<Enemy> enemyTopCopy;
+    public static List<Enemy> enemyBottomCopy;
     public static double offsetX;
     public static double offsetY;
+    public static boolean isRunning;
 
     public Button getToendscreen() {
         return toendscreen;
@@ -43,9 +46,12 @@ public class GameScreen {
         this.height = height;
         enemyTop = new LinkedList<>();
         enemyBottom = new LinkedList<>();
+        enemyTopCopy = new LinkedList<>();
+        enemyBottomCopy = new LinkedList<>();
         clickableAnchorPane = new AnchorPane();
         infoPanel = new InfoPanel();
         enemyAnchorPane = new AnchorPane();
+        isRunning = false;
     }
 
     public static AnchorPane getClickableAnchorPane() {
@@ -102,11 +108,13 @@ public class GameScreen {
 
         for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
             Enemy top = new Enemy(randomElement(), 50, 5, 820, 190, 10,
-                    this, Enums.Lane.Top, i);
+                    this, Enums.EnemyLane.Top, i);
             Enemy bottom = new Enemy(randomElement(), 50, 5, 820, 290, 10,
-                    this, Enums.Lane.Bottom, i);
+                    this, Enums.EnemyLane.Bottom, i);
             enemyTop.add(top);
             enemyBottom.add(bottom);
+            enemyTopCopy.add(top);
+            enemyBottomCopy.add(bottom);
             enemyAnchorPane.getChildren().addAll(top.getEnemysprite(), bottom.getEnemysprite());
         }
 
@@ -124,6 +132,7 @@ public class GameScreen {
     }
 
     private void startGame() {
+        isRunning = true;
         this.startgame.setVisible(false);
         Timer timer = new Timer();
         final int[] i = {0};
@@ -131,10 +140,9 @@ public class GameScreen {
             @Override
             public void run() {
                 if (i[0] < GameConfig.getEnemyCount()
-                        || GameConfig.getMonumentHealth() > 0) {
-                    enemyTop.get(i[0]).play();
-                    enemyBottom.get(i[0]).play();
-                    System.out.println("NOW RUNNING" + enemyTop.get(i[0]));
+                        && GameConfig.getMonumentHealth() > 0) {
+                    enemyTopCopy.get(i[0]).play();
+                    enemyBottomCopy.get(i[0]).play();
                     i[0]++;
                 } else {
                     timer.cancel();

@@ -31,7 +31,7 @@ public class Enemy {
     private int number;
     private double speed;
     private GameScreen gameScreen;
-    private Enums.Lane lane;
+    private Enums.EnemyLane lane;
 
     public ImageView getEnemysprite() {
         return enemysprite;
@@ -46,7 +46,7 @@ public class Enemy {
     private TranslateTransition transition;
 
     public Enemy(Element ele, int health, int damage, int x, int y,
-                 double traveltime, GameScreen gameScreen, Enums.Lane lane, int number) {
+                 double traveltime, GameScreen gameScreen, Enums.EnemyLane lane, int number) {
         this.element = ele;
         this.health = health;
         this.damage = damage;
@@ -79,7 +79,7 @@ public class Enemy {
                 if (health <= 0) {
                     transition.stop();
                     enemysprite.setVisible(false);
-                    if (lane == Enums.Lane.Top) {
+                    if (lane == Enums.EnemyLane.Top) {
                         GameScreen.enemyTop.remove(0);
                     } else {
                         GameScreen.enemyBottom.remove(0);
@@ -92,7 +92,7 @@ public class Enemy {
         timer.scheduleAtFixedRate(task, 0, 100);
 
         this.transition.setOnFinished(actionEvent -> {
-            if (lane == Enums.Lane.Top) {
+            if (lane == Enums.EnemyLane.Top) {
                 GameScreen.enemyTop.remove(0);
             } else {
                 GameScreen.enemyBottom.remove(0);

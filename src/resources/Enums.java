@@ -14,8 +14,14 @@ public class Enums {
         Air
     }
 
-    public enum Lane {
+    public enum EnemyLane {
         Top,
+        Bottom
+    }
+
+    public enum TowerLane {
+        Top,
+        Middle,
         Bottom
     }
 }
