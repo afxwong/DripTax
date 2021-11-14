@@ -140,7 +140,7 @@ public class TowerGridCell extends Pane {
                     double closestDistance = 9999;
                     double enemyRealY = 0;
                     for (Enemy enemy : GameScreen.enemyTop) {
-                        if (enemy.isVisible()) {
+                        if (enemy.isActive()) {
                             double enemyX = GameConfig.getEnemyStartingX() + enemy.getTransition().getNode().getTranslateX();
                             double enemyY = GameConfig.getEnemyTopStartingY() + enemy.getTransition().getNode().getTranslateY();
                             double distance = Math.sqrt(Math.pow(locationX - enemyX, 2) + Math.pow(locationY - enemyY, 2));
@@ -152,7 +152,7 @@ public class TowerGridCell extends Pane {
                         }
                     }
                     for (Enemy enemy : GameScreen.enemyBottom) {
-                        if (enemy.isVisible()) {
+                        if (enemy.isActive()) {
                             double enemyX = GameConfig.getEnemyStartingX() + enemy.getTransition().getNode().getTranslateX();
                             double enemyY = GameConfig.getEnemyBottomStartingY() + enemy.getTransition().getNode().getTranslateY();
                             double distance = Math.sqrt(Math.pow(locationX - enemyX, 2) + Math.pow(locationY - enemyY, 2));
@@ -211,7 +211,7 @@ public class TowerGridCell extends Pane {
 
         transition.setOnFinished(actionEvent -> {
             if (target[0] != null) {
-                target[0].setHealth(target[0].getHealth() - tower.getDamage());
+                target[0].takeDamage(tower.getDamage());
             }
             /*
             if (towerLane == Enums.TowerLane.Top) {

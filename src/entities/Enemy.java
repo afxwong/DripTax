@@ -3,6 +3,8 @@ package entities;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import resources.Enums;
 import resources.Enums.Element;
@@ -12,10 +14,11 @@ import views.GameScreen;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Enemy {
+public class Enemy extends Pane {
     private Element element;
 
     private int health;
+    private int maxHealth;
     private int damage;
     private int x;
     private int y;
@@ -25,13 +28,14 @@ public class Enemy {
     private int killReward;
     private GameScreen gameScreen;
     private Enums.EnemyLane lane;
-    private ImageView enemysprite;
+    private ImageView enemySprite;
     private TranslateTransition transition;
 
     public Enemy(Element ele, int health, int damage, int x, int y,
                  double traveltime, GameScreen gameScreen, Enums.EnemyLane lane, int number) {
         this.element = ele;
         this.health = health;
+        this.maxHealth = health;
         this.damage = damage;
         this.x = x;
         this.y = y;
@@ -42,20 +46,20 @@ public class Enemy {
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
         this.transition.setDuration(Duration.seconds(traveltime));
-        this.enemysprite = new ImageView(new Image("resources/"
+        this.enemySprite = new ImageView(new Image("resources/"
                 + ele.toString().toLowerCase() + "Car.png", 50, 50, false, false));
-        this.enemysprite.setX(x);
-        this.enemysprite.setY(y);
+        this.enemySprite.setX(x);
+        this.enemySprite.setY(y);
         this.transition.setCycleCount(1);
-        this.transition.setNode(this.enemysprite);
+        this.transition.setNode(this.enemySprite);
         this.lane = lane;
         this.number = number;
-        this.enemysprite.setVisible(false);
+        this.enemySprite.setVisible(false);
     }
 
     public void play() {
         this.visible = true;
-        this.enemysprite.setVisible(true);
+        this.enemySprite.setVisible(true);
         this.transition.play();
         Timer timer = new Timer();
 
@@ -66,7 +70,7 @@ public class Enemy {
 //                System.out.println(transition.getNode().getTranslateX());
                 if (health <= 0) {
                     transition.stop();
-                    enemysprite.setVisible(false);
+                    enemySprite.setVisible(false);
                     if (lane == Enums.EnemyLane.Top) {
                         GameScreen.enemyTop.remove(0);
                     } else {
@@ -103,7 +107,7 @@ public class Enemy {
             GameConfig.setMonumentHealth(GameConfig.getMonumentHealth()
                     - GameConfig.getEnemyDamage());
             this.gameScreen.updateHealth();
-            this.enemysprite.setVisible(false);
+            this.enemySprite.setVisible(false);
             task.cancel();
             timer.cancel();
             timer.purge();
@@ -111,7 +115,7 @@ public class Enemy {
     }
 
     public ImageView getEnemysprite() {
-        return enemysprite;
+        return enemySprite;
     }
 
     public TranslateTransition getTransition() {
@@ -124,6 +128,17 @@ public class Enemy {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+        // Display health after taking damage (DOES NOT CURRENTLY WORK)
+        Text healthIndicator = new Text();
+        healthIndicator.setText(health + "/" + maxHealth);
+        healthIndicator.setStyle("-fx-text-fill: #FF0000;");
+        healthIndicator.setX(10);
+        healthIndicator.setY(10);
+        this.getChildren().add(healthIndicator);
     }
 
     public int getDamage() {
@@ -154,7 +169,7 @@ public class Enemy {
         return speed;
     }
 
-    public boolean isVisible() {
+    public boolean isActive() {
         return visible;
     }
 }
