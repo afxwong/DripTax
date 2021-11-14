@@ -72,33 +72,41 @@ public class GameConfig {
         return frune;
     }
 
-    public static void setFrune(int frune) {
-        GameConfig.frune = frune;
+    public static void setFrune(int amount) {
+        GameConfig.frune = amount;
     }
+
+    public static void addFrune(int amount) { GameConfig.frune += amount; }
 
     public static int getWrune() {
         return wrune;
     }
 
-    public static void setWrune(int wrune) {
-        GameConfig.wrune = wrune;
+    public static void setWrune(int amount) {
+        GameConfig.wrune = amount;
     }
+
+    public static void addWrune(int amount) { GameConfig.wrune += amount; }
 
     public static int getGrune() {
         return grune;
     }
 
-    public static void setGrune(int grune) {
-        GameConfig.grune = grune;
+    public static void setGrune(int amount) {
+        GameConfig.grune = amount;
     }
+
+    public static void addGrune(int amount) { GameConfig.grune += amount; }
 
     public static int getArune() {
         return arune;
     }
 
-    public static void setArune(int arune) {
-        GameConfig.arune = arune;
+    public static void setArune(int amount) {
+        GameConfig.arune = amount;
     }
+
+    public static void addArune(int amount) { GameConfig.arune += amount; }
 
     public static Enums.Difficulty getDifficulty() {
         return difficulty;

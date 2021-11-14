@@ -15,35 +15,17 @@ import java.util.TimerTask;
 public class Enemy {
     private Element element;
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     private int health;
     private int damage;
     private int x;
     private int y;
     private boolean visible;
-
-    public int getNumber() {
-        return number;
-    }
-
     private int number;
     private double speed;
+    private int killReward;
     private GameScreen gameScreen;
     private Enums.EnemyLane lane;
-
-    public ImageView getEnemysprite() {
-        return enemysprite;
-    }
-
     private ImageView enemysprite;
-
-    public TranslateTransition getTransition() {
-        return transition;
-    }
-
     private TranslateTransition transition;
 
     public Enemy(Element ele, int health, int damage, int x, int y,
@@ -55,6 +37,7 @@ public class Enemy {
         this.y = y;
         this.visible = false;
         this.speed = traveltime;
+        this.killReward = 10;
         this.gameScreen = gameScreen;
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
@@ -91,6 +74,21 @@ public class Enemy {
                     }
                     timer.cancel();
                     timer.purge();
+                    // Gain rune of enemy's type on death
+                    switch (element) {
+                        case Fire:
+                            GameConfig.addFrune(killReward);
+                            break;
+                        case Water:
+                            GameConfig.addWrune(killReward);
+                            break;
+                        case Ground:
+                            GameConfig.addGrune(killReward);
+                            break;
+                        case Air:
+                            GameConfig.addArune(killReward);
+                            break;
+                    }
                 }
             }
         };
@@ -110,6 +108,22 @@ public class Enemy {
             timer.cancel();
             timer.purge();
         });
+    }
+
+    public ImageView getEnemysprite() {
+        return enemysprite;
+    }
+
+    public TranslateTransition getTransition() {
+        return transition;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getDamage() {

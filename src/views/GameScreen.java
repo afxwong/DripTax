@@ -3,6 +3,7 @@ package views;
 import components.InfoPanel;
 import components.TowerGrid;
 import entities.Enemy;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -148,6 +149,17 @@ public class GameScreen {
                     timer.cancel();
                     timer.purge();
                 }
+                // Rune gain over time at 5 runes of each type per 2 seconds
+                GameConfig.addFrune(5);
+                GameConfig.addWrune(5);
+                GameConfig.addGrune(5);
+                GameConfig.addArune(5);
+                Platform.runLater(
+                        () -> {
+                            // Update UI on separate thread
+                            infoPanel.updateInfo();
+                        }
+                );
             }
         };
         timer.schedule(timerTask, 0, 2000);

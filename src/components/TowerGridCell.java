@@ -94,9 +94,11 @@ public class TowerGridCell extends Pane {
             startProjectiles();
         } else {
             // Shouldn't get here probably. Need to fix.
-            System.out.println("Removed tower at Pane #"
+            // You can get here by trying to place a tower on a tile with a tower existing on it
+            System.out.println("Replaced tower at Pane #"
                     + this.gridIndex[0] + "-" + this.gridIndex[1]);
             removeTower();
+            placeTower(e);
         }
     }
 
@@ -208,7 +210,9 @@ public class TowerGridCell extends Pane {
         timer.scheduleAtFixedRate(task, 0, 300);
 
         transition.setOnFinished(actionEvent -> {
-            target[0].setHealth(target[0].getHealth() - tower.getDamage());
+            if (target[0] != null) {
+                target[0].setHealth(target[0].getHealth() - tower.getDamage());
+            }
             /*
             if (towerLane == Enums.TowerLane.Top) {
                 GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
