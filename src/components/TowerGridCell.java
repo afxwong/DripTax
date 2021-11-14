@@ -207,7 +207,7 @@ public class TowerGridCell extends Pane {
                 }
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 300);
+        timer.scheduleAtFixedRate(task, 0, tower.getSpeed());
 
         transition.setOnFinished(actionEvent -> {
             if (target[0] != null) {
