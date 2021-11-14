@@ -107,9 +107,9 @@ public class GameScreen {
         offsetY = towergrid.getLayoutY();
 
         for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
-            Enemy top = new Enemy(randomElement(), 50, 5, 820, 190, 10,
+            Enemy top = new Enemy(randomElement(), 50, 5, GameConfig.getEnemyStartingX(), GameConfig.getEnemyTopStartingY(), 10,
                     this, Enums.EnemyLane.Top, i);
-            Enemy bottom = new Enemy(randomElement(), 50, 5, 820, 290, 10,
+            Enemy bottom = new Enemy(randomElement(), 50, 5, GameConfig.getEnemyStartingX(), GameConfig.getEnemyBottomStartingY(), 10,
                     this, Enums.EnemyLane.Bottom, i);
             enemyTop.add(top);
             enemyBottom.add(bottom);

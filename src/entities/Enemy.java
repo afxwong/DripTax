@@ -23,6 +23,7 @@ public class Enemy {
     private int damage;
     private int x;
     private int y;
+    private boolean visible;
 
     public int getNumber() {
         return number;
@@ -52,6 +53,7 @@ public class Enemy {
         this.damage = damage;
         this.x = x;
         this.y = y;
+        this.visible = false;
         this.speed = traveltime;
         this.gameScreen = gameScreen;
         this.transition = new TranslateTransition();
@@ -65,9 +67,12 @@ public class Enemy {
         this.transition.setNode(this.enemysprite);
         this.lane = lane;
         this.number = number;
+        this.enemysprite.setVisible(false);
     }
 
     public void play() {
+        this.visible = true;
+        this.enemysprite.setVisible(true);
         this.transition.play();
         Timer timer = new Timer();
 
@@ -133,5 +138,9 @@ public class Enemy {
 
     public double getSpeed() {
         return speed;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 }

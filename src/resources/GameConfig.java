@@ -15,6 +15,10 @@ public class GameConfig {
     private static int grune;
     private static int arune;
     private static Enums.Difficulty difficulty;
+    private static int enemyStartingX = 820;
+    private static int enemyTopStartingY = 190;
+    private static int enemyBottomStartingY = 290;
+
 
     public GameConfig() {
         this.difford = difficulty.ordinal() + 1;
@@ -135,5 +139,17 @@ public class GameConfig {
         }
         return difficulty == Enums.Difficulty.Medium ? difford * scaleFactorTowerCost
                 : (difford + 2) * scaleFactorEnemyDamage;
+    }
+
+    static public int getEnemyStartingX() {
+        return enemyStartingX;
+    }
+
+    static public int getEnemyTopStartingY() {
+        return enemyTopStartingY;
+    }
+
+    static public int getEnemyBottomStartingY() {
+        return enemyBottomStartingY;
     }
 }
