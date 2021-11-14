@@ -3,7 +3,6 @@ package entities;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import resources.Enums;
@@ -14,7 +13,7 @@ import views.GameScreen;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Enemy extends Pane {
+public class Enemy {
     private Element element;
 
     private int health;
@@ -154,13 +153,17 @@ public class Enemy extends Pane {
 
     public void takeDamage(int damage) {
         health -= damage;
-        // Display health after taking damage (DOES NOT CURRENTLY WORK)
+        // Display health after taking damage (NOT FINISHED)
         Text healthIndicator = new Text();
         healthIndicator.setText(health + "/" + maxHealth);
-        healthIndicator.setStyle("-fx-text-fill: #FF0000;");
-        healthIndicator.setX(10);
-        healthIndicator.setY(10);
-        this.getChildren().add(healthIndicator);
+        healthIndicator.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
+        healthIndicator.setX(GameConfig.getEnemyStartingX() + this.transition.getNode().getTranslateX());
+        if (this.lane == Enums.EnemyLane.Top) {
+            healthIndicator.setY(GameConfig.getEnemyTopStartingY() + this.transition.getNode().getTranslateY());
+        } else {
+            healthIndicator.setY(GameConfig.getEnemyBottomStartingY() + this.transition.getNode().getTranslateY());
+        }
+        GameScreen.enemyAnchorPane.getChildren().add(healthIndicator);
     }
 
     public int getDamage() {
