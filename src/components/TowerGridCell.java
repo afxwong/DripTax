@@ -164,7 +164,7 @@ public class TowerGridCell extends Pane {
                         }
                     }
                     // Shoot projectile transition if target exists
-                    if (target[0] != null) {
+                    if (target[0] != null && target[0].isActive()) {
                         double destinationX = GameScreen.calculateXPosition(target[0].getTransition().getNode().getTranslateX(),
                                 GameConfig.getEnemyStartingX(), relativeLocationX);
                         transition.setToY(enemyRealY - locationY);
@@ -210,7 +210,7 @@ public class TowerGridCell extends Pane {
         timer.scheduleAtFixedRate(task, 0, tower.getSpeed());
 
         transition.setOnFinished(actionEvent -> {
-            if (target[0] != null) {
+            if (target[0] != null && target[0].isActive()) {
                 target[0].takeDamage(tower.getDamage());
             }
             /*

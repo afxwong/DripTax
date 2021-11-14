@@ -35,7 +35,6 @@ public class Enemy extends Pane {
                  double traveltime, GameScreen gameScreen, Enums.EnemyLane lane, int number) {
         this.element = ele;
         this.health = health;
-        this.maxHealth = health;
         this.damage = damage;
         this.x = x;
         this.y = y;
@@ -45,7 +44,6 @@ public class Enemy extends Pane {
         this.gameScreen = gameScreen;
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
-        this.transition.setDuration(Duration.seconds(traveltime));
         this.enemySprite = new ImageView(new Image("resources/"
                 + ele.toString().toLowerCase() + "Car.png", 50, 50, false, false));
         this.enemySprite.setX(x);
@@ -55,6 +53,30 @@ public class Enemy extends Pane {
         this.lane = lane;
         this.number = number;
         this.enemySprite.setVisible(false);
+        switch (ele) {
+            case Fire:
+                this.health *= 1;
+                this.damage *= 1;
+                this.speed *= 1;
+                break;
+            case Water:
+                this.health *= 2;
+                this.damage *= 1;
+                this.speed *= 2;
+                break;
+            case Ground:
+                this.health *= 3;
+                this.damage *= 3;
+                this.speed *= 3;
+                break;
+            case Air:
+                this.health *= 0.5;
+                this.damage *= 0.5;
+                this.speed *= 0.5;
+                break;
+        }
+        this.maxHealth = this.health;
+        this.transition.setDuration(Duration.seconds(this.speed));
     }
 
     public void play() {
