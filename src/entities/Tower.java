@@ -60,4 +60,6 @@ public class Tower {
     public int getSpeed() {
         return speed;
     }
+
+    public int getLevel() { return level; }
 }

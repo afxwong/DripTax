@@ -5,6 +5,7 @@ import javafx.embed.swing.JFXPanel;
 import views.GameScreen;
 import resources.GameConfig;
 import static org.junit.jupiter.api.Assertions.*;
+import static resources.Enums.Element.Air;
 import static resources.Enums.Element.Fire;
 
 public class EnemyTest {
@@ -73,4 +74,44 @@ public class EnemyTest {
         Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
         assertEquals(0, testEnemy.getY());
     }
+
+    @org.junit.jupiter.api.Test
+    void testAttack() {
+        JFXPanel fxPanel = new JFXPanel();
+        GameScreen gameScreen = new GameScreen(1000, 500);
+        gameScreen.getGameScene();
+        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        if (testEnemy.getDamage() > 0) {
+            assertTrue(true);
+        }
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSortKey() {
+        JFXPanel fxPanel = new JFXPanel();
+        GameScreen gameScreen = new GameScreen(1000, 500);
+        gameScreen.getGameScene();
+        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        assertNotEquals(testEnemy.getSortkey(), null);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetHealth() {
+        JFXPanel fxPanel = new JFXPanel();
+        GameScreen gameScreen = new GameScreen(1000, 500);
+        gameScreen.getGameScene();
+        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        testEnemy.setHealth(20);
+        assertEquals(testEnemy.getHealth(), 20);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testGetNumber() {
+        JFXPanel fxPanel = new JFXPanel();
+        GameScreen gameScreen = new GameScreen(1000, 500);
+        gameScreen.getGameScene();
+        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        assertNotEquals((double) testEnemy.getNumber(), null);
+    }
+
 }

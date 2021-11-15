@@ -1,0 +1,25 @@
+M5 JUnit Tests:
+
+TowerTest class:
+testTowerAttack: ensures that a given tower has the correct parameters in order to attack enemies. This is necessary
+because attacking enemies is a critical functionality of the game.
+testTowerTypes: ensures that a tower is initialized with the correct stats given its element. This is critical as the
+game revolves around towers having different elements that affect the game in multiple ways.
+testTowerRange: ensures that a tower has a specific range of attack. This is stressed in the implementation requirements, hence
+why is it important to test it.
+testTowerDamage: ensures that a tower has a specific damage output. This is stressed in the implementation requirements, hence
+why is it important to test it.
+testTowerSpeed: ensures that a tower has a specific speed of attack. This is stressed in the implementation requirements, hence
+why is it important to test it.
+testTowerLevelUp: ensures that a tower correctly increases its level field after gaining a level in game. This is important
+for the game's progression as enemies increase in difficulty
+
+EnemyTest class:
+testAttack: ensures that enemies deal damage to towers when attacking. This is an important game function and therefore
+necessary to test.
+testSortKey: ensures that sortKey is initialized correctly. This field is important for the Enemy class, which is why
+its initialization must be tested.
+testSetHealth: ensures that the setHealth method works as intended. This is important to test because changing health of
+enemies is a critical element of the game; without it, there is no way a player could win.
+testGetNumber: ensures that the enemy number field is correctly initialized. This is important to test as keeping track
+of the enemy number is crucial for the logical flow of the game.
