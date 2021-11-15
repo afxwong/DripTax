@@ -29,7 +29,7 @@ public class GameScreen {
     private int height;
     private static AnchorPane clickableAnchorPane;
     private static InfoPanel infoPanel;
-    public static AnchorPane enemyAnchorPane;
+    private static AnchorPane enemyAnchorPane;
     public static List<Enemy> enemyTop;
     public static List<Enemy> enemyBottom;
     public static List<Enemy> enemyTopCopy;

@@ -117,15 +117,12 @@ public class TowerGridCell extends Pane {
 //        this.projectile.setY(this.getLayoutY());
         TranslateTransition transition = new TranslateTransition();
         this.getChildren().add(this.projectile);
-        double relativeLocationX = this.getLayoutX();
-        double locationX = this.getLayoutX() + 227;
-        double locationY = this.getLayoutY() + 135;
+        double locationX = this.getLayoutX();
 //        transition.setFromX(this.getLayoutX());
 //        System.out.println(this.getLayoutX());
 //        System.out.println(this.getLayoutY());
 //        transition.setFromY(this.getLayoutY());
 
-        final Enemy[] target = new Enemy[1];
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -136,42 +133,6 @@ public class TowerGridCell extends Pane {
                     transition.setCycleCount(1);
                     transition.setFromX(0);
                     transition.setFromY(0);
-                    // Find the enemy within the tower's firing range closest to the tower
-                    double closestDistance = 9999;
-                    double enemyRealY = 0;
-                    for (Enemy enemy : GameScreen.enemyTop) {
-                        if (enemy.isActive()) {
-                            double enemyX = GameConfig.getEnemyStartingX() + enemy.getTransition().getNode().getTranslateX();
-                            double enemyY = GameConfig.getEnemyTopStartingY() + enemy.getTransition().getNode().getTranslateY();
-                            double distance = Math.sqrt(Math.pow(locationX - enemyX, 2) + Math.pow(locationY - enemyY, 2));
-                            if (distance < tower.getRange() && distance < closestDistance) {
-                                closestDistance = distance;
-                                target[0] = enemy;
-                                enemyRealY = enemyY;
-                            }
-                        }
-                    }
-                    for (Enemy enemy : GameScreen.enemyBottom) {
-                        if (enemy.isActive()) {
-                            double enemyX = GameConfig.getEnemyStartingX() + enemy.getTransition().getNode().getTranslateX();
-                            double enemyY = GameConfig.getEnemyBottomStartingY() + enemy.getTransition().getNode().getTranslateY();
-                            double distance = Math.sqrt(Math.pow(locationX - enemyX, 2) + Math.pow(locationY - enemyY, 2));
-                            if (distance < tower.getRange() && distance < closestDistance) {
-                                closestDistance = distance;
-                                target[0] = enemy;
-                                enemyRealY = enemyY;
-                            }
-                        }
-                    }
-                    // Shoot projectile transition if target exists
-                    if (target[0] != null && target[0].isActive()) {
-                        double destinationX = GameScreen.calculateXPosition(target[0].getTransition().getNode().getTranslateX(),
-                                GameConfig.getEnemyStartingX(), relativeLocationX);
-                        transition.setToY(enemyRealY - locationY);
-                        transition.setToX(destinationX);
-                        transition.play();
-                    }
-                    /*
                     if (towerLane == Enums.TowerLane.Top) {
                         Enemy target = GameScreen.enemyTop.get(0);
                         double destinationX = GameScreen.calculateXPosition(
@@ -203,17 +164,12 @@ public class TowerGridCell extends Pane {
                         transition.setToX(destinationX);
                         transition.play();
                     }
-                    */
                 }
             }
         };
         timer.scheduleAtFixedRate(task, 0, tower.getSpeed());
 
         transition.setOnFinished(actionEvent -> {
-            if (target[0] != null && target[0].isActive()) {
-                target[0].takeDamage(tower.getDamage());
-            }
-            /*
             if (towerLane == Enums.TowerLane.Top) {
                 GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
                         - GameScreen.enemyTop.get(0).getDamage());
@@ -230,7 +186,6 @@ public class TowerGridCell extends Pane {
                 GameScreen.enemyBottom.get(0).setHealth(GameScreen.enemyBottom.get(0).getHealth()
                         - GameScreen.enemyBottom.get(0).getDamage());
             }
-            */
         });
     }
 }
