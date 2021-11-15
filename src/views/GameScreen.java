@@ -116,7 +116,7 @@ public class GameScreen {
             enemyBottom.add(bottom);
             enemyTopCopy.add(top);
             enemyBottomCopy.add(bottom);
-            enemyAnchorPane.getChildren().addAll(top.getEnemysprite(), bottom.getEnemysprite());
+            enemyAnchorPane.getChildren().addAll(top.getStackPane(), bottom.getStackPane());
         }
 
         // populate root and base layers

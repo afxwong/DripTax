@@ -178,18 +178,22 @@ public class TowerGridCell extends Pane {
             if (towerLane == Enums.TowerLane.Top) {
                 GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
                         - tower.getDamage());
+                GameScreen.enemyTop.get(0).updateHealthLabel();
             } else if (towerLane == Enums.TowerLane.Middle) {
                 if (GameScreen.enemyBottom.get(0).getTransition().getNode().getTranslateX()
                         < GameScreen.enemyTop.get(0).getTransition().getNode().getTranslateX()) {
                     GameScreen.enemyBottom.get(0).setHealth(GameScreen.enemyBottom.get(0).getHealth()
                             - tower.getDamage());
+                    GameScreen.enemyBottom.get(0).updateHealthLabel();
                 } else {
                     GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
                             - tower.getDamage());
+                    GameScreen.enemyTop.get(0).updateHealthLabel();
                 }
             } else {
                 GameScreen.enemyBottom.get(0).setHealth(GameScreen.enemyBottom.get(0).getHealth()
                         - tower.getDamage());
+                GameScreen.enemyBottom.get(0).updateHealthLabel();
             }
         });
     }
