@@ -1,19 +1,20 @@
 package components;
 
 import entities.Enemy;
-import javafx.animation.TranslateTransition;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import entities.Player;
 import entities.Tower;
+import javafx.animation.TranslateTransition;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import resources.Enums;
 import resources.Enums.Element;
-import javafx.scene.image.ImageView;
-import resources.GameConfig;
 import views.GameScreen;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TowerGridCell extends Pane {
 
@@ -29,7 +30,8 @@ public class TowerGridCell extends Pane {
         this.selected = false;
         this.hasTower = false;
         this.setMinSize(40, 50);
-        this.towerLane = j == 0 ? Enums.TowerLane.Top : j == 2 ? Enums.TowerLane.Middle : Enums.TowerLane.Bottom;
+        this.towerLane = j == 0 ? Enums.TowerLane.Top : j == 2
+                ? Enums.TowerLane.Middle : Enums.TowerLane.Bottom;
         if (j % 2 == 0) {
             initTowerCell(i, j);
         } else {
@@ -101,7 +103,7 @@ public class TowerGridCell extends Pane {
         }
     }
 
-    Comparator<Enemy> enemyComparator = Comparator.comparingDouble(Enemy::getSortkey);
+    private Comparator<Enemy> enemyComparator = Comparator.comparingDouble(Enemy::getSortkey);
 
     public void removeTower() {
         this.getChildren().clear();
@@ -114,53 +116,49 @@ public class TowerGridCell extends Pane {
     }
 
     public void startProjectiles() {
-//        this.projectile.setX(this.getLayoutX());
-//        this.projectile.setY(this.getLayoutY());
         TranslateTransition transition = new TranslateTransition();
         this.getChildren().add(this.projectile);
         double locationX = this.getLayoutX();
-//        transition.setFromX(this.getLayoutX());
-//        System.out.println(this.getLayoutX());
-//        System.out.println(this.getLayoutY());
-//        transition.setFromY(this.getLayoutY());
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (GameScreen.isRunning) {
+                if (GameScreen.getIsRunning()) {
                     transition.setDuration(Duration.millis(100));
                     transition.setNode(projectile);
                     transition.setCycleCount(1);
                     transition.setFromX(0);
                     transition.setFromY(0);
-                    GameScreen.enemyBottom.sort(enemyComparator);
-                    GameScreen.enemyTop.sort(enemyComparator);
+                    GameScreen.getEnemyBottom().sort(enemyComparator);
+                    GameScreen.getEnemyTop().sort(enemyComparator);
                     if (towerLane == Enums.TowerLane.Top) {
-                        Enemy target = GameScreen.enemyTop.get(0);
+                        Enemy target = GameScreen.getEnemyTop().get(0);
                         double destinationX = GameScreen.calculateXPosition(
                                 target.getTransition().getNode().getTranslateX(), 820, locationX);
                         transition.setToY(50);
                         transition.setToX(destinationX);
                         transition.play();
                     } else if (towerLane == Enums.TowerLane.Middle) {
-                        Enemy targettop = GameScreen.enemyTop.get(0);
-                        Enemy targetbottom = GameScreen.enemyBottom.get(0);
+                        Enemy targettop = GameScreen.getEnemyTop().get(0);
+                        Enemy targetbottom = GameScreen.getEnemyBottom().get(0);
                         double destinationX = 0;
                         if (targetbottom.getTransition().getNode().getTranslateX()
                                 < targettop.getTransition().getNode().getTranslateX()) {
                             destinationX = GameScreen.calculateXPosition(
-                                    targetbottom.getTransition().getNode().getTranslateX(), 820, locationX);
+                                    targetbottom.getTransition().getNode().getTranslateX(),
+                                    820, locationX);
                             transition.setToY(50);
                         } else {
                             destinationX = GameScreen.calculateXPosition(
-                                    targettop.getTransition().getNode().getTranslateX(), 820, locationX);
+                                    targettop.getTransition().getNode().getTranslateX(),
+                                    820, locationX);
                             transition.setToY(-50);
                         }
                         transition.setToX(destinationX);
                         transition.play();
                     } else {
-                        Enemy target = GameScreen.enemyBottom.get(0);
+                        Enemy target = GameScreen.getEnemyBottom().get(0);
                         double destinationX = GameScreen.calculateXPosition(
                                 target.getTransition().getNode().getTranslateX(), 820, locationX);
                         transition.setToY(-50);
@@ -173,27 +171,31 @@ public class TowerGridCell extends Pane {
         timer.scheduleAtFixedRate(task, 0, tower.getSpeed());
 
         transition.setOnFinished(actionEvent -> {
-            GameScreen.enemyBottom.sort(enemyComparator);
-            GameScreen.enemyTop.sort(enemyComparator);
+            GameScreen.getEnemyBottom().sort(enemyComparator);
+            GameScreen.getEnemyTop().sort(enemyComparator);
             if (towerLane == Enums.TowerLane.Top) {
-                GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
-                        - tower.getDamage());
-                GameScreen.enemyTop.get(0).updateHealthLabel();
+                GameScreen.getEnemyTop().get(0).setHealth(GameScreen.getEnemyTop()
+                        .get(0).getHealth() - tower.getDamage());
+                GameScreen.getEnemyTop().get(0).updateHealthLabel();
             } else if (towerLane == Enums.TowerLane.Middle) {
-                if (GameScreen.enemyBottom.get(0).getTransition().getNode().getTranslateX()
-                        < GameScreen.enemyTop.get(0).getTransition().getNode().getTranslateX()) {
-                    GameScreen.enemyBottom.get(0).setHealth(GameScreen.enemyBottom.get(0).getHealth()
+                if (GameScreen.getEnemyBottom().get(0).getTransition().getNode().getTranslateX()
+                        < GameScreen.getEnemyTop().get(0).getTransition()
+                        .getNode().getTranslateX()) {
+                    GameScreen.getEnemyBottom().get(0).setHealth(GameScreen
+                            .getEnemyBottom().get(0).getHealth()
                             - tower.getDamage());
-                    GameScreen.enemyBottom.get(0).updateHealthLabel();
+                    GameScreen.getEnemyBottom().get(0).updateHealthLabel();
                 } else {
-                    GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
+                    GameScreen.getEnemyTop().get(0).setHealth(GameScreen
+                            .getEnemyTop().get(0).getHealth()
                             - tower.getDamage());
-                    GameScreen.enemyTop.get(0).updateHealthLabel();
+                    GameScreen.getEnemyTop().get(0).updateHealthLabel();
                 }
             } else {
-                GameScreen.enemyBottom.get(0).setHealth(GameScreen.enemyBottom.get(0).getHealth()
+                GameScreen.getEnemyBottom().get(0).setHealth(GameScreen
+                        .getEnemyBottom().get(0).getHealth()
                         - tower.getDamage());
-                GameScreen.enemyBottom.get(0).updateHealthLabel();
+                GameScreen.getEnemyBottom().get(0).updateHealthLabel();
             }
         });
     }

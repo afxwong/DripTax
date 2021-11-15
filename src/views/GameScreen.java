@@ -3,7 +3,6 @@ package views;
 import components.InfoPanel;
 import components.TowerGrid;
 import entities.Enemy;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,15 +27,40 @@ public class GameScreen {
     private int width;
     private int height;
     private static AnchorPane clickableAnchorPane;
-    public static InfoPanel infoPanel;
-    public static AnchorPane enemyAnchorPane;
-    public static List<Enemy> enemyTop;
-    public static List<Enemy> enemyBottom;
-    public static List<Enemy> enemyTopCopy;
-    public static List<Enemy> enemyBottomCopy;
-    public static double offsetX;
-    public static double offsetY;
-    public static boolean isRunning;
+    private static InfoPanel infoPanel;
+    private static AnchorPane enemyAnchorPane;
+
+    public static List<Enemy> getEnemyTop() {
+        return enemyTop;
+    }
+
+    public static void setEnemyTop(List<Enemy> enemyTop) {
+        GameScreen.enemyTop = enemyTop;
+    }
+
+    public static List<Enemy> getEnemyBottom() {
+        return enemyBottom;
+    }
+
+    public static void setEnemyBottom(List<Enemy> enemyBottom) {
+        GameScreen.enemyBottom = enemyBottom;
+    }
+
+    public static boolean getIsRunning() {
+        return isRunning;
+    }
+
+    public static void setIsRunning(boolean isRunning) {
+        GameScreen.isRunning = isRunning;
+    }
+
+    private static List<Enemy> enemyTop;
+    private static List<Enemy> enemyBottom;
+    private static List<Enemy> enemyTopCopy;
+    private static List<Enemy> enemyBottomCopy;
+    private static double offsetX;
+    private static double offsetY;
+    private static boolean isRunning;
 
     public Button getToendscreen() {
         return toendscreen;
@@ -108,10 +132,12 @@ public class GameScreen {
         offsetY = towergrid.getLayoutY();
 
         for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
-            Enemy top = new Enemy(randomElement(), 100, 5, GameConfig.getEnemyStartingX(), GameConfig.getEnemyTopStartingY(), 10,
-                    this, Enums.EnemyLane.Top, i);
-            Enemy bottom = new Enemy(randomElement(), 100, 5, GameConfig.getEnemyStartingX(), GameConfig.getEnemyBottomStartingY(), 10,
-                    this, Enums.EnemyLane.Bottom, i);
+            Enemy top = new Enemy(randomElement(), 100,
+                    GameConfig.getEnemyStartingX(), GameConfig.getEnemyTopStartingY(), 10,
+                    this, Enums.EnemyLane.Top);
+            Enemy bottom = new Enemy(randomElement(), 100,
+                    GameConfig.getEnemyStartingX(), GameConfig.getEnemyBottomStartingY(), 10,
+                    this, Enums.EnemyLane.Bottom);
             enemyTop.add(top);
             enemyBottom.add(bottom);
             enemyTopCopy.add(top);
@@ -149,17 +175,6 @@ public class GameScreen {
                     timer.cancel();
                     timer.purge();
                 }
-                // Rune gain over time at 5 runes of each type per 2 seconds
-//                GameConfig.addFrune(5);
-//                GameConfig.addWrune(5);
-//                GameConfig.addGrune(5);
-//                GameConfig.addArune(5);
-//                Platform.runLater(
-//                        () -> {
-//                            // Update UI on separate thread
-//                            infoPanel.updateInfo();
-//                        }
-//                );
             }
         };
         timer.schedule(timerTask, 0, 2000);
@@ -184,8 +199,10 @@ public class GameScreen {
         }
     }
 
-    public static double calculateXPosition(double translatedX, double startEnemyX, double projectileOriginX) {
-        return startEnemyX + translatedX > projectileOriginX ? startEnemyX + translatedX - projectileOriginX - offsetX + 20
+    public static double calculateXPosition(double translatedX, double startEnemyX,
+                                            double projectileOriginX) {
+        return startEnemyX + translatedX > projectileOriginX
+                ? startEnemyX + translatedX - projectileOriginX - offsetX + 20
                 : (startEnemyX + translatedX - projectileOriginX - offsetX - 50) * -1;
     }
 

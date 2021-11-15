@@ -76,7 +76,9 @@ public class GameConfig {
         GameConfig.frune = amount;
     }
 
-    public static void addFrune(int amount) { GameConfig.frune += amount; }
+    public static void addFrune(int amount) {
+        GameConfig.frune += amount;
+    }
 
     public static int getWrune() {
         return wrune;
@@ -86,7 +88,9 @@ public class GameConfig {
         GameConfig.wrune = amount;
     }
 
-    public static void addWrune(int amount) { GameConfig.wrune += amount; }
+    public static void addWrune(int amount) {
+        GameConfig.wrune += amount;
+    }
 
     public static int getGrune() {
         return grune;
@@ -96,7 +100,9 @@ public class GameConfig {
         GameConfig.grune = amount;
     }
 
-    public static void addGrune(int amount) { GameConfig.grune += amount; }
+    public static void addGrune(int amount) {
+        GameConfig.grune += amount;
+    }
 
     public static int getArune() {
         return arune;
@@ -106,7 +112,9 @@ public class GameConfig {
         GameConfig.arune = amount;
     }
 
-    public static void addArune(int amount) { GameConfig.arune += amount; }
+    public static void addArune(int amount) {
+        GameConfig.arune += amount;
+    }
 
     public static Enums.Difficulty getDifficulty() {
         return difficulty;
@@ -149,15 +157,15 @@ public class GameConfig {
                 : (difford + 2) * scaleFactorEnemyDamage;
     }
 
-    static public int getEnemyStartingX() {
+    public static int getEnemyStartingX() {
         return enemyStartingX;
     }
 
-    static public int getEnemyTopStartingY() {
+    public static int getEnemyTopStartingY() {
         return enemyTopStartingY;
     }
 
-    static public int getEnemyBottomStartingY() {
+    public static int getEnemyBottomStartingY() {
         return enemyBottomStartingY;
     }
 

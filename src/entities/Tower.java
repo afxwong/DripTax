@@ -13,26 +13,28 @@ public class Tower {
         this.element = e;
         this.level = 0;
         switch (e) {
-            case Fire:
-                this.range = 200;
-                this.damage = 25;
-                this.speed = 300;
-                break;
-            case Water:
-                this.range = 300;
-                this.damage = 25;
-                this.speed = 500;
-                break;
-            case Ground:
-                this.range = 100;
-                this.damage = 50;
-                this.speed = 800;
-                break;
-            case Air:
-                this.range = 500;
-                this.damage = 10;
-                this.speed = 100;
-                break;
+        case Fire:
+            this.range = 200;
+            this.damage = 25;
+            this.speed = 300;
+            break;
+        case Water:
+            this.range = 300;
+            this.damage = 25;
+            this.speed = 500;
+            break;
+        case Ground:
+            this.range = 100;
+            this.damage = 50;
+            this.speed = 800;
+            break;
+        case Air:
+            this.range = 500;
+            this.damage = 10;
+            this.speed = 100;
+            break;
+        default:
+            break;
         }
     }
 
@@ -61,5 +63,7 @@ public class Tower {
         return speed;
     }
 
-    public int getLevel() { return level; }
+    public int getLevel() {
+        return level;
+    }
 }

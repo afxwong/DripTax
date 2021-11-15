@@ -94,7 +94,7 @@ public class TowerTest {
         Tower t = new Tower(Element.Fire);
         int prevLevel = t.getLevel();
         t.upgradeLevel();
-        assertEquals(t.getLevel(), prevLevel+1);
+        assertEquals(t.getLevel(), prevLevel + 1);
     }
 
 

@@ -14,7 +14,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Fire, 10, 0, 0, 5, gameScreen, null);
         int initialHealth = GameConfig.getMonumentHealth();
         testEnemy.play();
         assertEquals(GameConfig.getMonumentHealth(),
@@ -26,7 +26,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Fire, 10, 0, 0, 5, gameScreen, null);
         assertEquals(10, testEnemy.getDamage());
     }
 
@@ -35,7 +35,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Fire, 10, 0, 0, 5, gameScreen, null);
         assertEquals(Fire, testEnemy.getElement());
     }
 
@@ -44,7 +44,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Fire, 10, 0, 0, 5, gameScreen, null);
         assertEquals(10, testEnemy.getHealth());
     }
 
@@ -53,7 +53,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Fire, 10, 0, 0, 5, gameScreen, null);
         assertEquals(5.0, testEnemy.getSpeed());
     }
 
@@ -62,7 +62,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Fire, 10, 0, 0, 5, gameScreen, null);
         assertEquals(0, testEnemy.getX());
     }
 
@@ -71,7 +71,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Fire, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Fire, 10, 0, 0, 5, gameScreen, null);
         assertEquals(0, testEnemy.getY());
     }
 
@@ -80,7 +80,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Air, 10, 0, 0, 5, gameScreen, null);
         if (testEnemy.getDamage() > 0) {
             assertTrue(true);
         }
@@ -91,7 +91,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Air, 10, 0, 0, 5, gameScreen, null);
         assertNotEquals(testEnemy.getSortkey(), null);
     }
 
@@ -100,7 +100,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Air, 10, 0, 0, 5, gameScreen, null);
         testEnemy.setHealth(20);
         assertEquals(testEnemy.getHealth(), 20);
     }
@@ -110,7 +110,7 @@ public class EnemyTest {
         JFXPanel fxPanel = new JFXPanel();
         GameScreen gameScreen = new GameScreen(1000, 500);
         gameScreen.getGameScene();
-        Enemy testEnemy = new Enemy(Air, 10, 10, 0, 0, 5, gameScreen, null, 0);
+        Enemy testEnemy = new Enemy(Air, 10, 0, 0, 5, gameScreen, null);
         assertNotEquals((double) testEnemy.getNumber(), null);
     }
 

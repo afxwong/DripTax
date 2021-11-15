@@ -58,22 +58,19 @@ public class Enemy {
 
     private TranslateTransition transition;
 
-    public Enemy(Element ele, int health, int damage, int x, int y,
-                 double traveltime, GameScreen gameScreen, Enums.EnemyLane lane, int number) {
+    public Enemy(Element ele, int health, int x, int y,
+                 double traveltime, GameScreen gameScreen, Enums.EnemyLane lane) {
         this.element = ele;
         this.health = health;
-        this.damage = damage;
+        this.damage = 10; // BASE DAMAGE
         this.x = x;
         this.y = y;
         this.speed = traveltime;
         this.gameScreen = gameScreen;
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
-//        this.transition.setDuration(Duration.seconds(traveltime));
         this.enemysprite = new ImageView(new Image("resources/"
                 + ele.toString().toLowerCase() + "Car.png", 50, 50, false, false));
-//        this.enemysprite.setX(x);
-//        this.enemysprite.setY(y);
         this.healthLabel = new Label(String.valueOf(this.health));
         this.healthLabel.setTextFill(Color.RED);
         this.stackPane = new StackPane();
@@ -86,26 +83,28 @@ public class Enemy {
         this.number = number;
         this.sortkey = this.transition.getNode().getTranslateX();
         switch (ele) {
-            case Fire:
-                this.health *= 1;
-                this.damage *= 1;
-                this.speed *= 1;
-                break;
-            case Water:
-                this.health *= 2;
-                this.damage *= 1;
-                this.speed *= 2;
-                break;
-            case Ground:
-                this.health *= 3;
-                this.damage *= 3;
-                this.speed *= 3;
-                break;
-            case Air:
-                this.health *= 0.5;
-                this.damage *= 0.5;
-                this.speed *= 0.5;
-                break;
+        case Fire:
+            this.health *= 1;
+            this.damage *= 1;
+            this.speed *= 1;
+            break;
+        case Water:
+            this.health *= 2;
+            this.damage *= 1;
+            this.speed *= 2;
+            break;
+        case Ground:
+            this.health *= 3;
+            this.damage *= 3;
+            this.speed *= 3;
+            break;
+        case Air:
+            this.health *= 0.5;
+            this.damage *= 0.5;
+            this.speed *= 0.5;
+            break;
+        default:
+            break;
         }
         this.transition.setDuration(Duration.seconds(this.speed));
     }
@@ -114,7 +113,7 @@ public class Enemy {
         this.healthLabel.setText(String.valueOf(this.health));
     }
 
-    Comparator<Enemy> enemyComparator = Comparator.comparingDouble(Enemy::getSortkey);
+    private Comparator<Enemy> enemyComparator = Comparator.comparingDouble(Enemy::getSortkey);
 
     public void play() {
         this.transition.play();
@@ -124,45 +123,58 @@ public class Enemy {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-//                System.out.println(transition.getNode().getTranslateX());
                 updateSortkey();
                 if (health <= 0) {
                     transition.stop();
                     stackPane.setVisible(false);
-                    GameScreen.enemyBottom.sort(enemyComparator);
-                    GameScreen.enemyTop.sort(enemyComparator);
+                    GameScreen.getEnemyBottom().sort(enemyComparator);
+                    GameScreen.getEnemyTop().sort(enemyComparator);
                     if (lane == Enums.EnemyLane.Top) {
-                        switch (GameScreen.enemyTop.get(0).getElement()) {
+                        switch (GameScreen.getEnemyTop().get(0).getElement()) {
                             case Fire:
-                                GameConfig.addFrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                GameConfig.addFrune(GameConfig.getKillReward(
+                                        GameConfig.getDifficulty()));
                                 break;
                             case Water:
-                                GameConfig.addWrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                GameConfig.addWrune(GameConfig.getKillReward(
+                                        GameConfig.getDifficulty()));
                                 break;
                             case Ground:
-                                GameConfig.addGrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                GameConfig.addGrune(GameConfig.getKillReward(
+                                        GameConfig.getDifficulty()));
                                 break;
                             case Air:
-                                GameConfig.addArune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                GameConfig.addArune(GameConfig.getKillReward(
+                                        GameConfig.getDifficulty()));
+                                break;
+                            default:
+                                break;
                         }
-                        GameScreen.enemyTop.remove(0);
+                        GameScreen.getEnemyTop().remove(0);
                     } else {
-                        switch (GameScreen.enemyBottom.get(0).getElement()) {
-                            case Fire:
-                                GameConfig.addFrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
-                                break;
-                            case Water:
-                                GameConfig.addWrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
-                                break;
-                            case Ground:
-                                GameConfig.addGrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
-                                break;
-                            case Air:
-                                GameConfig.addArune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                        switch (GameScreen.getEnemyBottom().get(0).getElement()) {
+                        case Fire:
+                            GameConfig.addFrune(GameConfig.getKillReward(
+                                    GameConfig.getDifficulty()));
+                            break;
+                        case Water:
+                            GameConfig.addWrune(GameConfig.getKillReward(
+                                    GameConfig.getDifficulty()));
+                            break;
+                        case Ground:
+                            GameConfig.addGrune(GameConfig.getKillReward(
+                                    GameConfig.getDifficulty()));
+                            break;
+                        case Air:
+                            GameConfig.addArune(GameConfig.getKillReward(
+                                    GameConfig.getDifficulty()));
+                            break;
+                        default:
+                            break;
                         }
-                        GameScreen.enemyBottom.remove(0);
+                        GameScreen.getEnemyBottom().remove(0);
                     }
-                    Platform.runLater(() -> GameScreen.infoPanel.updateInfo());
+                    Platform.runLater(() -> GameScreen.getInfoPanel().updateInfo());
                     timer.cancel();
                     timer.purge();
                 }
@@ -172,9 +184,9 @@ public class Enemy {
 
         this.transition.setOnFinished(actionEvent -> {
             if (lane == Enums.EnemyLane.Top) {
-                GameScreen.enemyTop.remove(0);
+                GameScreen.getEnemyTop().remove(0);
             } else {
-                GameScreen.enemyBottom.remove(0);
+                GameScreen.getEnemyBottom().remove(0);
             }
             GameConfig.setMonumentHealth(GameConfig.getMonumentHealth()
                     - GameConfig.getEnemyDamage());
