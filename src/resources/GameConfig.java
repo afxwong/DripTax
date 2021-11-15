@@ -160,4 +160,14 @@ public class GameConfig {
     static public int getEnemyBottomStartingY() {
         return enemyBottomStartingY;
     }
+
+    public static int getKillReward(Enums.Difficulty diff) {
+        if (diff == Enums.Difficulty.Easy) {
+            return 15;
+        }
+        if (diff == Enums.Difficulty.Medium) {
+            return 10;
+        }
+        return 5;
+    }
 }

@@ -1,6 +1,7 @@
 package entities;
 
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -111,10 +112,37 @@ public class Enemy {
                     GameScreen.enemyBottom.sort(enemyComparator);
                     GameScreen.enemyTop.sort(enemyComparator);
                     if (lane == Enums.EnemyLane.Top) {
+                        switch (GameScreen.enemyTop.get(0).getElement()) {
+                            case Fire:
+                                GameConfig.addFrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                break;
+                            case Water:
+                                GameConfig.addWrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                break;
+                            case Ground:
+                                GameConfig.addGrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                break;
+                            case Air:
+                                GameConfig.addArune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                        }
                         GameScreen.enemyTop.remove(0);
                     } else {
+                        switch (GameScreen.enemyBottom.get(0).getElement()) {
+                            case Fire:
+                                GameConfig.addFrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                break;
+                            case Water:
+                                GameConfig.addWrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                break;
+                            case Ground:
+                                GameConfig.addGrune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                                break;
+                            case Air:
+                                GameConfig.addArune(GameConfig.getKillReward(GameConfig.getDifficulty()));
+                        }
                         GameScreen.enemyBottom.remove(0);
                     }
+                    Platform.runLater(() -> GameScreen.infoPanel.updateInfo());
                     timer.cancel();
                     timer.purge();
                 }
