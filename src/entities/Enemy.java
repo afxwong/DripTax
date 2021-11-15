@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import resources.Enums;
 import resources.Enums.Element;
@@ -21,6 +22,7 @@ public class Enemy {
         this.health = health;
     }
 
+    private int maxHealth;
     private int health;
     private int damage;
     private int x;
@@ -164,6 +166,21 @@ public class Enemy {
             timer.cancel();
             timer.purge();
         });
+    }
+
+    public void takeDamage() {
+        health -= getDamage();
+        // Display health after taking damage (NOT FINISHED)
+        Text healthIndicator = new Text();
+        healthIndicator.setText(health + "/" + maxHealth);
+        healthIndicator.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #FF0000;");
+        healthIndicator.setX(GameConfig.getEnemyStartingX() + this.sortkey);
+        if (this.lane == Enums.EnemyLane.Top) {
+            healthIndicator.setY(GameConfig.getEnemyTopStartingY());
+        } else {
+            healthIndicator.setY(GameConfig.getEnemyBottomStartingY());
+        }
+        GameScreen.enemyAnchorPane.getChildren().add(healthIndicator);
     }
 
     public int getDamage() {
