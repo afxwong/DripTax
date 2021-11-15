@@ -13,8 +13,7 @@ import javafx.scene.image.ImageView;
 import resources.GameConfig;
 import views.GameScreen;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class TowerGridCell extends Pane {
 
@@ -102,6 +101,8 @@ public class TowerGridCell extends Pane {
         }
     }
 
+    Comparator<Enemy> enemyComparator = Comparator.comparingDouble(Enemy::getSortkey);
+
     public void removeTower() {
         this.getChildren().clear();
         this.hasTower = false;
@@ -133,6 +134,8 @@ public class TowerGridCell extends Pane {
                     transition.setCycleCount(1);
                     transition.setFromX(0);
                     transition.setFromY(0);
+                    GameScreen.enemyBottom.sort(enemyComparator);
+                    GameScreen.enemyTop.sort(enemyComparator);
                     if (towerLane == Enums.TowerLane.Top) {
                         Enemy target = GameScreen.enemyTop.get(0);
                         double destinationX = GameScreen.calculateXPosition(
@@ -170,21 +173,23 @@ public class TowerGridCell extends Pane {
         timer.scheduleAtFixedRate(task, 0, tower.getSpeed());
 
         transition.setOnFinished(actionEvent -> {
+            GameScreen.enemyBottom.sort(enemyComparator);
+            GameScreen.enemyTop.sort(enemyComparator);
             if (towerLane == Enums.TowerLane.Top) {
                 GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
-                        - GameScreen.enemyTop.get(0).getDamage());
+                        - tower.getDamage());
             } else if (towerLane == Enums.TowerLane.Middle) {
                 if (GameScreen.enemyBottom.get(0).getTransition().getNode().getTranslateX()
                         < GameScreen.enemyTop.get(0).getTransition().getNode().getTranslateX()) {
                     GameScreen.enemyBottom.get(0).setHealth(GameScreen.enemyBottom.get(0).getHealth()
-                            - GameScreen.enemyBottom.get(0).getDamage());
+                            - tower.getDamage());
                 } else {
                     GameScreen.enemyTop.get(0).setHealth(GameScreen.enemyTop.get(0).getHealth()
-                            - GameScreen.enemyTop.get(0).getDamage());
+                            - tower.getDamage());
                 }
             } else {
                 GameScreen.enemyBottom.get(0).setHealth(GameScreen.enemyBottom.get(0).getHealth()
-                        - GameScreen.enemyBottom.get(0).getDamage());
+                        - tower.getDamage());
             }
         });
     }

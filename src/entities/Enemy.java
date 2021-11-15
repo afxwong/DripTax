@@ -9,6 +9,7 @@ import resources.Enums.Element;
 import resources.GameConfig;
 import views.GameScreen;
 
+import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,6 +24,7 @@ public class Enemy {
     private int damage;
     private int x;
     private int y;
+    private double sortkey;
 
     public int getNumber() {
         return number;
@@ -56,7 +58,7 @@ public class Enemy {
         this.gameScreen = gameScreen;
         this.transition = new TranslateTransition();
         this.transition.setToX(-600);
-        this.transition.setDuration(Duration.seconds(traveltime));
+//        this.transition.setDuration(Duration.seconds(traveltime));
         this.enemysprite = new ImageView(new Image("resources/"
                 + ele.toString().toLowerCase() + "Car.png", 50, 50, false, false));
         this.enemysprite.setX(x);
@@ -65,7 +67,33 @@ public class Enemy {
         this.transition.setNode(this.enemysprite);
         this.lane = lane;
         this.number = number;
+        this.sortkey = this.transition.getNode().getTranslateX();
+        switch (ele) {
+            case Fire:
+                this.health *= 1;
+                this.damage *= 1;
+                this.speed *= 1;
+                break;
+            case Water:
+                this.health *= 2;
+                this.damage *= 1;
+                this.speed *= 2;
+                break;
+            case Ground:
+                this.health *= 3;
+                this.damage *= 3;
+                this.speed *= 3;
+                break;
+            case Air:
+                this.health *= 0.5;
+                this.damage *= 0.5;
+                this.speed *= 0.5;
+                break;
+        }
+        this.transition.setDuration(Duration.seconds(this.speed));
     }
+
+    Comparator<Enemy> enemyComparator = Comparator.comparingDouble(Enemy::getSortkey);
 
     public void play() {
         this.transition.play();
@@ -76,9 +104,12 @@ public class Enemy {
             @Override
             public void run() {
 //                System.out.println(transition.getNode().getTranslateX());
+                updateSortkey();
                 if (health <= 0) {
                     transition.stop();
                     enemysprite.setVisible(false);
+                    GameScreen.enemyBottom.sort(enemyComparator);
+                    GameScreen.enemyTop.sort(enemyComparator);
                     if (lane == Enums.EnemyLane.Top) {
                         GameScreen.enemyTop.remove(0);
                     } else {
@@ -133,5 +164,13 @@ public class Enemy {
 
     public double getSpeed() {
         return speed;
+    }
+
+    public void updateSortkey() {
+        this.sortkey = this.transition.getNode().getTranslateX();
+    }
+
+    public double getSortkey() {
+        return this.sortkey;
     }
 }
