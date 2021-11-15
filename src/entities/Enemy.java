@@ -2,8 +2,11 @@ package entities;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import resources.Enums;
 import resources.Enums.Element;
@@ -36,6 +39,13 @@ public class Enemy {
     private GameScreen gameScreen;
     private Enums.EnemyLane lane;
 
+    public StackPane getStackPane() {
+        return stackPane;
+    }
+
+    private StackPane stackPane;
+    private Label healthLabel;
+
     public ImageView getEnemysprite() {
         return enemysprite;
     }
@@ -62,10 +72,16 @@ public class Enemy {
 //        this.transition.setDuration(Duration.seconds(traveltime));
         this.enemysprite = new ImageView(new Image("resources/"
                 + ele.toString().toLowerCase() + "Car.png", 50, 50, false, false));
-        this.enemysprite.setX(x);
-        this.enemysprite.setY(y);
+//        this.enemysprite.setX(x);
+//        this.enemysprite.setY(y);
+        this.healthLabel = new Label(String.valueOf(this.health));
+        this.healthLabel.setTextFill(Color.RED);
+        this.stackPane = new StackPane();
+        this.stackPane.setLayoutX(x);
+        this.stackPane.setLayoutY(y);
+        this.stackPane.getChildren().addAll(this.enemysprite, this.healthLabel);
         this.transition.setCycleCount(1);
-        this.transition.setNode(this.enemysprite);
+        this.transition.setNode(this.stackPane);
         this.lane = lane;
         this.number = number;
         this.sortkey = this.transition.getNode().getTranslateX();
@@ -94,6 +110,10 @@ public class Enemy {
         this.transition.setDuration(Duration.seconds(this.speed));
     }
 
+    public void updateHealthLabel() {
+        this.healthLabel.setText(String.valueOf(this.health));
+    }
+
     Comparator<Enemy> enemyComparator = Comparator.comparingDouble(Enemy::getSortkey);
 
     public void play() {
@@ -108,7 +128,7 @@ public class Enemy {
                 updateSortkey();
                 if (health <= 0) {
                     transition.stop();
-                    enemysprite.setVisible(false);
+                    stackPane.setVisible(false);
                     GameScreen.enemyBottom.sort(enemyComparator);
                     GameScreen.enemyTop.sort(enemyComparator);
                     if (lane == Enums.EnemyLane.Top) {
@@ -159,7 +179,7 @@ public class Enemy {
             GameConfig.setMonumentHealth(GameConfig.getMonumentHealth()
                     - GameConfig.getEnemyDamage());
             this.gameScreen.updateHealth();
-            this.enemysprite.setVisible(false);
+            this.stackPane.setVisible(false);
             task.cancel();
             timer.cancel();
             timer.purge();
