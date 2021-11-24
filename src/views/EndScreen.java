@@ -8,13 +8,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import resources.GameConfig;
 
 public class EndScreen {
 
     private int width;
     private int height;
-    private final Label endtext;
+    private Label endtext;
     private Button exitbutton;
     private Button playagainbutton;
 
@@ -35,6 +37,10 @@ public class EndScreen {
         this.playagainbutton = new Button("Play Again");
     }
 
+    public void changeEndText(String s) {
+        this.endtext.setText(s);
+    }
+
     public Scene getEndScene() {
         StackPane top = new StackPane();
         FlowPane center = new FlowPane();
@@ -46,7 +52,13 @@ public class EndScreen {
         this.endtext.setAlignment(Pos.CENTER);
         top.getChildren().add(this.endtext);
 
-        center.getChildren().addAll(this.exitbutton, this.playagainbutton);
+        VBox infobox = new VBox();
+        infobox.setPadding(new Insets(10, 10, 10, 10));
+        Label enemieskilled = new Label("Enemies Killed: " + GameConfig.getEnemiesKilled());
+        Label timeelapsed = new Label("Time Elapsed (ms): "
+                + (GameConfig.getEndtime() - GameConfig.getStarttime()));
+        infobox.getChildren().addAll(enemieskilled, timeelapsed);
+        center.getChildren().addAll(infobox, this.exitbutton, this.playagainbutton);
 
         BorderPane root = new BorderPane();
         root.setTop(top);

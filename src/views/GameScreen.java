@@ -2,6 +2,7 @@ package views;
 
 import components.InfoPanel;
 import components.TowerGrid;
+import components.TowerGridCell;
 import entities.Enemy;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -56,6 +57,23 @@ public class GameScreen {
 
     private static List<Enemy> enemyTop;
     private static List<Enemy> enemyBottom;
+
+    public static List<Enemy> getEnemyTopCopy() {
+        return enemyTopCopy;
+    }
+
+    public static void setEnemyTopCopy(List<Enemy> enemyTopCopy) {
+        GameScreen.enemyTopCopy = enemyTopCopy;
+    }
+
+    public static List<Enemy> getEnemyBottomCopy() {
+        return enemyBottomCopy;
+    }
+
+    public static void setEnemyBottomCopy(List<Enemy> enemyBottomCopy) {
+        GameScreen.enemyBottomCopy = enemyBottomCopy;
+    }
+
     private static List<Enemy> enemyTopCopy;
     private static List<Enemy> enemyBottomCopy;
     private static double offsetX;
@@ -127,6 +145,12 @@ public class GameScreen {
 
         // add grid
         TowerGrid towergrid = new TowerGrid();
+        for (Pane[] t : towergrid.getTowerpanes()) {
+            for (Pane tgc : t) {
+                TowerGridCell temp = (TowerGridCell) tgc;
+                temp.setHasTower(false);
+            }
+        }
         clickableAnchorPane.getChildren().add(towergrid);
         offsetX = towergrid.getLayoutX();
         offsetY = towergrid.getLayoutY();
@@ -160,8 +184,11 @@ public class GameScreen {
 
     private void startGame() {
         isRunning = true;
+        GameConfig.setGameWon(false);
         this.startgame.setVisible(false);
+        GameConfig.setStarttime(System.currentTimeMillis());
         Timer timer = new Timer();
+        Timer timer1 = new Timer();
         final int[] i = {0};
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -172,17 +199,34 @@ public class GameScreen {
                     enemyBottomCopy.get(i[0]).play();
                     i[0]++;
                 } else {
+                    this.cancel();
                     timer.cancel();
                     timer.purge();
                 }
             }
         };
         timer.schedule(timerTask, 0, 2000);
+
+        TimerTask timerTask1 = new TimerTask() {
+            @Override
+            public void run() {
+                if (enemyBottom.isEmpty() && enemyTop.isEmpty()) {
+                    toendscreen.setVisible(true);
+                    GameConfig.setEndtime(System.currentTimeMillis());
+                    GameConfig.setGameWon(true);
+                    this.cancel();
+                    timer.purge();
+                    timer.cancel();
+                }
+            }
+        };
+        timer1.schedule(timerTask1, 0, 100);
     }
 
     public void updateHealth() {
         if (GameConfig.getMonumentHealth() <= 0) {
             this.toendscreen.setVisible(true);
+            GameConfig.setEndtime(System.currentTimeMillis());
         }
         this.healthlbl.setText(String.format("Wall Health: %s", GameConfig.getMonumentHealth()));
     }

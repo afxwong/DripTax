@@ -123,70 +123,80 @@ public class Enemy {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                updateSortkey();
-                if (health <= 0) {
-                    transition.stop();
-                    stackPane.setVisible(false);
-                    GameScreen.getEnemyBottom().sort(enemyComparator);
-                    GameScreen.getEnemyTop().sort(enemyComparator);
-                    if (lane == Enums.EnemyLane.Top) {
-                        switch (GameScreen.getEnemyTop().get(0).getElement()) {
-                            case Fire:
-                                GameConfig.addFrune(GameConfig.getKillReward(
-                                        GameConfig.getDifficulty()));
-                                break;
-                            case Water:
-                                GameConfig.addWrune(GameConfig.getKillReward(
-                                        GameConfig.getDifficulty()));
-                                break;
-                            case Ground:
-                                GameConfig.addGrune(GameConfig.getKillReward(
-                                        GameConfig.getDifficulty()));
-                                break;
-                            case Air:
-                                GameConfig.addArune(GameConfig.getKillReward(
-                                        GameConfig.getDifficulty()));
-                                break;
-                            default:
-                                break;
-                        }
-                        GameScreen.getEnemyTop().remove(0);
-                    } else {
-                        switch (GameScreen.getEnemyBottom().get(0).getElement()) {
-                        case Fire:
-                            GameConfig.addFrune(GameConfig.getKillReward(
-                                    GameConfig.getDifficulty()));
-                            break;
-                        case Water:
-                            GameConfig.addWrune(GameConfig.getKillReward(
-                                    GameConfig.getDifficulty()));
-                            break;
-                        case Ground:
-                            GameConfig.addGrune(GameConfig.getKillReward(
-                                    GameConfig.getDifficulty()));
-                            break;
-                        case Air:
-                            GameConfig.addArune(GameConfig.getKillReward(
-                                    GameConfig.getDifficulty()));
-                            break;
-                        default:
-                            break;
-                        }
-                        GameScreen.getEnemyBottom().remove(0);
-                    }
-                    Platform.runLater(() -> GameScreen.getInfoPanel().updateInfo());
+                if (!GameScreen.getIsRunning()) {
+                    this.cancel();
                     timer.cancel();
                     timer.purge();
+                } else {
+                    updateSortkey();
+                    if (health <= 0) {
+                        transition.stop();
+                        stackPane.setVisible(false);
+                        GameConfig.setEnemiesKilled(GameConfig.getEnemiesKilled() + 1);
+                        GameScreen.getEnemyBottom().sort(enemyComparator);
+                        GameScreen.getEnemyTop().sort(enemyComparator);
+                        if (lane == Enums.EnemyLane.Top) {
+                            switch (GameScreen.getEnemyTop().get(0).getElement()) {
+                                case Fire:
+                                    GameConfig.addFrune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                case Water:
+                                    GameConfig.addWrune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                case Ground:
+                                    GameConfig.addGrune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                case Air:
+                                    GameConfig.addArune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                default:
+                                    break;
+                            }
+                            GameScreen.getEnemyTop().remove(0);
+                        } else {
+                            switch (GameScreen.getEnemyBottom().get(0).getElement()) {
+                                case Fire:
+                                    GameConfig.addFrune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                case Water:
+                                    GameConfig.addWrune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                case Ground:
+                                    GameConfig.addGrune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                case Air:
+                                    GameConfig.addArune(GameConfig.getKillReward(
+                                            GameConfig.getDifficulty()));
+                                    break;
+                                default:
+                                    break;
+                            }
+                            GameScreen.getEnemyBottom().remove(0);
+                        }
+                        Platform.runLater(() -> GameScreen.getInfoPanel().updateInfo());
+                        this.cancel();
+                        timer.cancel();
+                        timer.purge();
+                    }
                 }
             }
         };
         timer.scheduleAtFixedRate(task, 0, 100);
 
         this.transition.setOnFinished(actionEvent -> {
-            if (lane == Enums.EnemyLane.Top) {
+            if (lane == Enums.EnemyLane.Top && !GameScreen.getEnemyTop().isEmpty()) {
                 GameScreen.getEnemyTop().remove(0);
             } else {
-                GameScreen.getEnemyBottom().remove(0);
+                if (!GameScreen.getEnemyBottom().isEmpty()) {
+                    GameScreen.getEnemyBottom().remove(0);
+                }
             }
             GameConfig.setMonumentHealth(GameConfig.getMonumentHealth()
                     - GameConfig.getEnemyDamage());

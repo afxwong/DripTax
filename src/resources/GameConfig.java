@@ -1,5 +1,7 @@
 package resources;
 
+import java.time.Instant;
+
 public class GameConfig {
 
     private final int scaleFactorHealth = 1000;
@@ -18,6 +20,43 @@ public class GameConfig {
     private static int enemyStartingX = 820;
     private static int enemyTopStartingY = 190;
     private static int enemyBottomStartingY = 290;
+    private static int enemiesKilled;
+    private static long starttime;
+    private static long endtime;
+
+    public static long getStarttime() {
+        return starttime;
+    }
+
+    public static void setStarttime(long starttime) {
+        GameConfig.starttime = starttime;
+    }
+
+    public static long getEndtime() {
+        return endtime;
+    }
+
+    public static void setEndtime(long endtime) {
+        GameConfig.endtime = endtime;
+    }
+
+    public static int getEnemiesKilled() {
+        return enemiesKilled;
+    }
+
+    public static void setEnemiesKilled(int enemiesKilled) {
+        GameConfig.enemiesKilled = enemiesKilled;
+    }
+
+    public static boolean isGameWon() {
+        return gameWon;
+    }
+
+    public static void setGameWon(boolean gameWon) {
+        GameConfig.gameWon = gameWon;
+    }
+
+    private static boolean gameWon = false;
 
 
     public GameConfig() {

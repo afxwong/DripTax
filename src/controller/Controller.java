@@ -1,5 +1,6 @@
 package controller;
 
+import components.TowerGrid;
 import entities.Player;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -19,6 +20,9 @@ import views.StartScreen;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller extends Application {
 
@@ -107,17 +111,41 @@ public class Controller extends Application {
     private void initializeGameScreen() throws FileNotFoundException {
         this.gameScreen = new GameScreen(this.gamewidth, this.gameheight);
         mainwindow.setScene(this.gameScreen.getGameScene());
-        this.gameScreen.getToendscreen().setOnAction(e -> initializeEndScreen());
+        this.gameScreen.getToendscreen().setOnAction(e -> {
+            initializeEndScreen();
+            GameScreen.setIsRunning(false);
+        });
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println(GameScreen.getEnemyTop().size());
+                System.out.println(GameScreen.getEnemyBottom().size());
+                System.out.println(GameScreen.getEnemyTopCopy().size());
+                System.out.println(GameScreen.getEnemyBottomCopy().size());
+            }
+        };
+        timer.schedule(timerTask, 0, 1000);
         mainwindow.show();
     }
 
     public void initializeEndScreen() {
         this.endScreen = new EndScreen(this.gamewidth, this.gameheight);
+        if (GameConfig.isGameWon()) {
+            this.endScreen.changeEndText("YOU WON!");
+        } else {
+            this.endScreen.changeEndText("You Lost...");
+        }
         mainwindow.setScene(this.endScreen.getEndScene());
         this.endScreen.getExitbutton().setOnAction(e -> System.exit(0));
         this.endScreen.getPlayagainbutton().setOnAction(e -> {
+            GameConfig.setEnemiesKilled(0);
             GameScreen.getClickableAnchorPane().getChildren().clear();
             GameScreen.getInfoPanel().getChildren().clear();
+            GameScreen.setEnemyBottom(new LinkedList<>());
+            GameScreen.setEnemyTop(new LinkedList<>());
+            GameScreen.setEnemyBottomCopy(new LinkedList<>());
+            GameScreen.setEnemyTopCopy(new LinkedList<>());
             initializeStartScreen();
         });
         mainwindow.show();
