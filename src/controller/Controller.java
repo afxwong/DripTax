@@ -119,10 +119,10 @@ public class Controller extends Application {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                System.out.println(GameScreen.getEnemyTop().size());
-                System.out.println(GameScreen.getEnemyBottom().size());
-                System.out.println(GameScreen.getEnemyTopCopy().size());
-                System.out.println(GameScreen.getEnemyBottomCopy().size());
+                //System.out.println("Top: " + GameScreen.getEnemyTop().size());
+                //System.out.println("Bottom: " + GameScreen.getEnemyBottom().size());
+                //System.out.println("TopCopy: " + GameScreen.getEnemyTopCopy().size());
+                //System.out.println("BottomCopy: " + GameScreen.getEnemyBottomCopy().size());
             }
         };
         timer.schedule(timerTask, 0, 1000);

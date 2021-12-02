@@ -12,7 +12,8 @@ public class Enums {
         Fire,
         Water,
         Ground,
-        Air
+        Air,
+        Boss
     }
 
     public enum EnemyLane {

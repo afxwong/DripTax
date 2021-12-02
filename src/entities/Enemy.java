@@ -103,6 +103,11 @@ public class Enemy {
             this.damage *= 0.5;
             this.speed *= 0.5;
             break;
+        case Boss:
+            this.health *= 50;
+            this.damage *= 50;
+            this.speed *= 4;
+            break;
         default:
             break;
         }

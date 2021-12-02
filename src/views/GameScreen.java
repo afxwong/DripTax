@@ -155,7 +155,7 @@ public class GameScreen {
         offsetX = towergrid.getLayoutX();
         offsetY = towergrid.getLayoutY();
 
-        for (int i = 0; i < GameConfig.getEnemyCount(); i++) {
+        for (int i = 0; i < GameConfig.getEnemyCount() - 1; i++) {
             Enemy top = new Enemy(randomElement(), 100,
                     GameConfig.getEnemyStartingX(), GameConfig.getEnemyTopStartingY(), 10,
                     this, Enums.EnemyLane.Top);
@@ -168,6 +168,13 @@ public class GameScreen {
             enemyBottomCopy.add(bottom);
             enemyAnchorPane.getChildren().addAll(top.getStackPane(), bottom.getStackPane());
         }
+        Enemy topBoss = new Enemy(Element.Boss, 100, GameConfig.getEnemyStartingX(), GameConfig.getEnemyTopStartingY(), 10, this, Enums.EnemyLane.Top);
+        enemyTop.add(topBoss);
+        enemyTopCopy.add(topBoss);
+        Enemy bottomBoss = new Enemy(Element.Boss, 100, GameConfig.getEnemyStartingX(), GameConfig.getEnemyBottomStartingY(), 10, this, Enums.EnemyLane.Bottom);
+        enemyBottom.add(bottomBoss);
+        enemyBottomCopy.add(bottomBoss);
+        enemyAnchorPane.getChildren().addAll(topBoss.getStackPane(), bottomBoss.getStackPane());
 
         // populate root and base layers
         baselayer.getChildren().addAll(infoPanel, imageboxes,
