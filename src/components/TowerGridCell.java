@@ -24,6 +24,7 @@ public class TowerGridCell extends Pane {
     private Tower tower;
     private ImageView projectile;
     private Enums.TowerLane towerLane;
+    private Element towerElem;
 
     public TowerGridCell(int i, int j) {
         this.gridIndex = new int[] {i, j};
@@ -96,10 +97,16 @@ public class TowerGridCell extends Pane {
         } else {
             // Shouldn't get here probably. Need to fix.
             // You can get here by trying to place a tower on a tile with a tower existing on it
-            System.out.println("Replaced tower at Pane #"
-                    + this.gridIndex[0] + "-" + this.gridIndex[1]);
-            removeTower();
-            placeTower(e);
+            if (tower.getElement() == e) {
+                System.out.println("Upgraded " + e + " tower at Pane #"
+                        + this.gridIndex[0] + "-" + this.gridIndex[1]);
+                tower.upgradeTower(e);
+            } else {
+                System.out.println("Replaced tower at Pane #"
+                        + this.gridIndex[0] + "-" + this.gridIndex[1]);
+                removeTower();
+                placeTower(e);
+            }
         }
     }
 
