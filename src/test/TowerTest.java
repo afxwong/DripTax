@@ -97,5 +97,39 @@ public class TowerTest {
         assertEquals(t.getLevel(), prevLevel + 1);
     }
 
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeFire() {
+        Tower t1 = new Tower(Element.Fire);
+        t1.upgradeTower(Element.Fire);
+        assertEquals(t1.getRange(), 200 + (50*t1.getLevel()));
+        assertEquals(t1.getDamage(), 25 + (25*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 300);
+    }
 
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeWater() {
+        Tower t1 = new Tower(Element.Water);
+        t1.upgradeTower(Element.Water);
+        assertEquals(t1.getRange(), 300);
+        assertEquals(t1.getDamage(), 25 + (15*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 500);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeGround() {
+        Tower t1 = new Tower(Element.Ground);
+        t1.upgradeTower(Element.Ground);
+        assertEquals(t1.getRange(), 100 + (100*t1.getLevel()));
+        assertEquals(t1.getDamage(), 50 + (10*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 800);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeAir() {
+        Tower t1 = new Tower(Element.Air);
+        t1.upgradeTower(Element.Air);
+        assertEquals(t1.getRange(), 500);
+        assertEquals(t1.getDamage(), 10 + (30*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 100);
+    }
 }

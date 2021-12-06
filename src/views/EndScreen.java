@@ -29,6 +29,8 @@ public class EndScreen {
         return playagainbutton;
     }
 
+    public Label getEndText() { return endtext; }
+
     public EndScreen(int width, int height) {
         this.width = width;
         this.height = height;
@@ -66,4 +68,8 @@ public class EndScreen {
 
         return new Scene(root, this.width, this.height);
     }
+
+    public int getWidth() { return width; }
+
+    public int getHeight() { return height; }
 }

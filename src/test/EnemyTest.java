@@ -2,6 +2,7 @@ package test;
 
 import entities.Enemy;
 import javafx.embed.swing.JFXPanel;
+import resources.Enums;
 import views.GameScreen;
 import resources.GameConfig;
 import static org.junit.jupiter.api.Assertions.*;
@@ -114,4 +115,31 @@ public class EnemyTest {
         assertNotEquals((double) testEnemy.getNumber(), null);
     }
 
+    @org.junit.jupiter.api.Test
+    void testBossHealth() {
+        JFXPanel fxPanel = new JFXPanel();
+        GameScreen gameScreen = new GameScreen(1000, 500);
+        gameScreen.getGameScene();
+        Enemy testEnemy = new Enemy(Enums.Element.Boss, 3000, 0, 0, 5, gameScreen, null);
+        assertEquals(testEnemy.getHealth(), 150000);
+        assertEquals(testEnemy.getDamage(), 500);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testBossDamage() {
+        JFXPanel fxPanel = new JFXPanel();
+        GameScreen gameScreen = new GameScreen(1000, 500);
+        gameScreen.getGameScene();
+        Enemy testEnemy = new Enemy(Enums.Element.Boss, 3000, 0, 0, 5, gameScreen, null);
+        assertEquals(testEnemy.getDamage(), 500);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testBossSpeed() {
+        JFXPanel fxPanel = new JFXPanel();
+        GameScreen gameScreen = new GameScreen(1000, 500);
+        gameScreen.getGameScene();
+        Enemy testEnemy = new Enemy(Enums.Element.Boss, 3000, 0, 0, 5, gameScreen, null);
+        assertEquals(testEnemy.getSpeed(), 20);
+    }
 }
