@@ -1,0 +1,15 @@
+M4 Junit Tests:
+
+EnemyTest class:
+TestPlay: tests enemy functionality, specifically in terms of damage dealt to the monument
+TestDamage: tests that constructor correctly initialized the damage field in the Enemy class
+TestElement: tests that constructor correctly initialized the element field in the Enemy class
+TestHealth: tests that constructor correctly initialized the health field in the Enemy class
+TestSpeed: tests that constructor correctly initialized the speed field in the Enemy class
+TestX: tests that constructor correctly initialized the x field in the Enemy class
+TestY: tests that constructor correctly initialized the y field in the Enemy class
+
+GameScreenTest class:
+TestRandomElement: test to ensure functionality of the randomElement method in GameScreen (i.e. that it does not produce a null result)
+TestGameOver: test if the game over button is displayed (game ends) when the monument reaches 0 health
+TestCameContinue: test if the game over button is not displayed when the monument's health is > 0

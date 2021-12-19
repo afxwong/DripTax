@@ -1,5 +1,6 @@
 package controller;
 
+import components.TowerGrid;
 import entities.Player;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -13,11 +14,15 @@ import javafx.stage.Stage;
 import resources.Enums;
 import resources.GameConfig;
 import views.ConfigScreen;
+import views.EndScreen;
 import views.GameScreen;
 import views.StartScreen;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller extends Application {
 
@@ -27,14 +32,23 @@ public class Controller extends Application {
     private final int gameheight = 500;
     private EventHandler<KeyEvent> toconfigscreen;
     private GameConfig currentGameConfig;
+    private StartScreen startScreen;
+    private ConfigScreen configScreen;
+    private GameScreen gameScreen;
+    private EndScreen endScreen;
     private Stage mainwindow;
     private Player player;
 
     @Override
     public void start(Stage stage) throws Exception {
-        StartScreen scene = new StartScreen(this.initwidth, this.initheight);
         mainwindow = stage;
-        mainwindow.setScene(scene.getStartScene());
+        mainwindow.setTitle("DripTax");
+        initializeStartScreen();
+    }
+
+    private void initializeStartScreen() {
+        this.startScreen = new StartScreen(this.initwidth, this.initheight);
+        mainwindow.setScene(this.startScreen.getStartScene());
         this.toconfigscreen = keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 try {
@@ -50,11 +64,11 @@ public class Controller extends Application {
 
     private void initializeConfigScreen() throws IOException {
         mainwindow.removeEventFilter(KeyEvent.KEY_PRESSED, this.toconfigscreen);
-        ConfigScreen configScreen = new ConfigScreen(this.initwidth, this.initheight);
-        mainwindow.setScene(configScreen.getConfigScene());
-        Button togamescreen = configScreen.getTogamescreen();
-        TextField textField = configScreen.getNamefield();
-        ComboBox<Enums.Difficulty> comboBox = configScreen.getDifficultyComboBox();
+        this.configScreen = new ConfigScreen(this.initwidth, this.initheight);
+        mainwindow.setScene(this.configScreen.getConfigScene());
+        Button togamescreen = this.configScreen.getTogamescreen();
+        TextField textField = this.configScreen.getNamefield();
+        ComboBox<Enums.Difficulty> comboBox = this.configScreen.getDifficultyComboBox();
         togamescreen.setOnAction(e -> {
             String name = textField.getText();
             Enums.Difficulty diff = comboBox.getValue();
@@ -95,8 +109,45 @@ public class Controller extends Application {
     }
 
     private void initializeGameScreen() throws FileNotFoundException {
-        GameScreen gameScreen = new GameScreen(this.gamewidth, this.gameheight);
-        mainwindow.setScene(gameScreen.getGameScene());
+        this.gameScreen = new GameScreen(this.gamewidth, this.gameheight);
+        mainwindow.setScene(this.gameScreen.getGameScene());
+        this.gameScreen.getToendscreen().setOnAction(e -> {
+            initializeEndScreen();
+            GameScreen.setIsRunning(false);
+        });
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                //System.out.println("Top: " + GameScreen.getEnemyTop().size());
+                //System.out.println("Bottom: " + GameScreen.getEnemyBottom().size());
+                //System.out.println("TopCopy: " + GameScreen.getEnemyTopCopy().size());
+                //System.out.println("BottomCopy: " + GameScreen.getEnemyBottomCopy().size());
+            }
+        };
+        timer.schedule(timerTask, 0, 1000);
+        mainwindow.show();
+    }
+
+    public void initializeEndScreen() {
+        this.endScreen = new EndScreen(this.gamewidth, this.gameheight);
+        if (GameConfig.isGameWon()) {
+            this.endScreen.changeEndText("YOU WON!");
+        } else {
+            this.endScreen.changeEndText("You Lost...");
+        }
+        mainwindow.setScene(this.endScreen.getEndScene());
+        this.endScreen.getExitbutton().setOnAction(e -> System.exit(0));
+        this.endScreen.getPlayagainbutton().setOnAction(e -> {
+            GameConfig.setEnemiesKilled(0);
+            GameScreen.getClickableAnchorPane().getChildren().clear();
+            GameScreen.getInfoPanel().getChildren().clear();
+            GameScreen.setEnemyBottom(new LinkedList<>());
+            GameScreen.setEnemyTop(new LinkedList<>());
+            GameScreen.setEnemyBottomCopy(new LinkedList<>());
+            GameScreen.setEnemyTopCopy(new LinkedList<>());
+            initializeStartScreen();
+        });
         mainwindow.show();
     }
 }

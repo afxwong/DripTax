@@ -58,7 +58,7 @@ public class ConfigScreen {
         this.namefield.setPromptText("ENTER YOUR NAME");
         this.difficultyComboBox = new ComboBox<>();
         this.difficultyComboBox.setPromptText("CHOOSE A DIFFICULTY");
-        this.difficultyComboBox.setItems(difficulties);
+        this.difficultyComboBox.setItems(this.difficulties);
         this.togamescreen = new Button("Begin");
         center.getChildren().addAll(namepane, this.difficultyComboBox, this.togamescreen);
 

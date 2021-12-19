@@ -1,0 +1,27 @@
+M6 JUnit Tests:
+
+TowerTest class:
+testTowerUpgradeFire: ensures that a tower is correctly upgraded when its element is Fire. This is important since upgrading
+towers is a crucial part of the game, and therefore ensuring that each tower upgrades correctly based on its element is also crucial.
+testTowerUpgradeWater: ensures that a tower is correctly upgraded when its element is Water. This is important since upgrading
+towers is a crucial part of the game, and therefore ensuring that each tower upgrades correctly based on its element is also crucial.
+testTowerUpgradeGround: ensures that a tower is correctly upgraded when its element is Ground. This is important since upgrading
+towers is a crucial part of the game, and therefore ensuring that each tower upgrades correctly based on its element is also crucial.
+testTowerUpgradeAir: ensures that a tower is correctly upgraded when its element is Air. This is important since upgrading
+towers is a crucial part of the game, and therefore ensuring that each tower upgrades correctly based on its element is also crucial.
+
+EndScreenTest class:
+testConstructor: tests EndScreen's constructor. This is important as EndScreen is a vital component of the game, so ensuring
+its constructor functions as intended is vital.
+testGetEndScene: ensures that the getEndScene method correctly returns a non-null Scene. This is important since, if the method
+were to return a null Scene, this would cause the EndScene to load incorrectly.
+testChangeEndText: ensures that the changeEndText method works as intended. This is important as being able to edit the endText
+label is vital for functionality of the EndScreen.
+
+EnemyTest class:
+testBossHealth: ensures that the Boss enemy's health field is correctly instantiated. This is important as the Boss enemy is a
+crucial part of the game.
+testBossDamage: ensures that the Boss enemy's damage field is correctly instantiated. This is important as the Boss enemy is a
+crucial part of the game.
+testBossSpeed: ensures that the Boss enemy's speed field is correctly instantiated. This is important as the Boss enemy is a
+crucial part of the game.

@@ -24,4 +24,112 @@ public class TowerTest {
         Tower tower4 = new Tower(Element.Ground);
         assertEquals(tower4.getElement(), Element.Ground);
     }
+
+    @org.junit.jupiter.api.Test
+    void testTowerAttack() {
+        Tower test = new Tower(Element.Fire);
+        assertNotEquals((double) test.getDamage(), null);
+        assertNotEquals(test.getRange(), null);
+        assertNotEquals((double) test.getSpeed(), null);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerTypes() {
+        Tower t1 = new Tower(Element.Fire);
+        assertEquals(t1.getRange(), 200);
+        assertEquals(t1.getDamage(), 25);
+        assertEquals(t1.getSpeed(), 300);
+        Tower t2 = new Tower(Element.Water);
+        assertEquals(t2.getRange(), 300);
+        assertEquals(t2.getDamage(), 25);
+        assertEquals(t2.getSpeed(), 500);
+        Tower t3 = new Tower(Element.Ground);
+        assertEquals(t3.getRange(), 100);
+        assertEquals(t3.getDamage(), 50);
+        assertEquals(t3.getSpeed(), 800);
+        Tower t4 = new Tower(Element.Air);
+        assertEquals(t4.getRange(), 500);
+        assertEquals(t4.getDamage(), 10);
+        assertEquals(t4.getSpeed(), 100);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerRange() {
+        Tower t1 = new Tower(Element.Fire);
+        assertNotEquals(t1.getRange(), null);
+        Tower t2 = new Tower(Element.Water);
+        assertNotEquals(t2.getRange(), null);
+        Tower t3 = new Tower(Element.Ground);
+        assertNotEquals(t3.getRange(), null);
+        Tower t4 = new Tower(Element.Air);
+        assertNotEquals(t4.getRange(), null);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerDamage() {
+        Tower t1 = new Tower(Element.Fire);
+        assertNotEquals((double) t1.getDamage(), null);
+        Tower t2 = new Tower(Element.Water);
+        assertNotEquals((double) t2.getDamage(), null);
+        Tower t3 = new Tower(Element.Ground);
+        assertNotEquals((double) t3.getDamage(), null);
+        Tower t4 = new Tower(Element.Air);
+        assertNotEquals((double) t4.getDamage(), null);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerSpeed() {
+        Tower t1 = new Tower(Element.Fire);
+        assertNotEquals((double) t1.getSpeed(), null);
+        Tower t2 = new Tower(Element.Water);
+        assertNotEquals((double) t2.getSpeed(), null);
+        Tower t3 = new Tower(Element.Ground);
+        assertNotEquals((double) t3.getSpeed(), null);
+        Tower t4 = new Tower(Element.Air);
+        assertNotEquals((double) t4.getSpeed(), null);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerLevelUp() {
+        Tower t = new Tower(Element.Fire);
+        int prevLevel = t.getLevel();
+        t.upgradeLevel();
+        assertEquals(t.getLevel(), prevLevel + 1);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeFire() {
+        Tower t1 = new Tower(Element.Fire);
+        t1.upgradeTower(Element.Fire);
+        assertEquals(t1.getRange(), 200 + (50*t1.getLevel()));
+        assertEquals(t1.getDamage(), 25 + (25*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 300);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeWater() {
+        Tower t1 = new Tower(Element.Water);
+        t1.upgradeTower(Element.Water);
+        assertEquals(t1.getRange(), 300);
+        assertEquals(t1.getDamage(), 25 + (15*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 500);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeGround() {
+        Tower t1 = new Tower(Element.Ground);
+        t1.upgradeTower(Element.Ground);
+        assertEquals(t1.getRange(), 100 + (100*t1.getLevel()));
+        assertEquals(t1.getDamage(), 50 + (10*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 800);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testTowerUpgradeAir() {
+        Tower t1 = new Tower(Element.Air);
+        t1.upgradeTower(Element.Air);
+        assertEquals(t1.getRange(), 500);
+        assertEquals(t1.getDamage(), 10 + (30*t1.getLevel()));
+        assertEquals(t1.getSpeed(), 100);
+    }
 }

@@ -58,19 +58,19 @@ public class HotbarComponent extends HBox {
 
     private void placeTower(Element towerType) {
         boolean sufficientRunes = false;
-        if (towerType == Element.Fire && hasSufficientRuins(
+        if (towerType == Element.Fire && hasSufficientRunes(
                 GameConfig.getFrune(), GameConfig.getTowerCost())) {
             GameConfig.setFrune(GameConfig.getFrune() - GameConfig.getTowerCost());
             sufficientRunes = true;
-        } else if (towerType == Element.Water && hasSufficientRuins(
+        } else if (towerType == Element.Water && hasSufficientRunes(
                 GameConfig.getWrune(), GameConfig.getTowerCost())) {
             GameConfig.setWrune(GameConfig.getWrune() - GameConfig.getTowerCost());
             sufficientRunes = true;
-        } else if (towerType == Element.Ground && hasSufficientRuins(
+        } else if (towerType == Element.Ground && hasSufficientRunes(
                 GameConfig.getGrune(), GameConfig.getTowerCost())) {
             GameConfig.setGrune(GameConfig.getGrune() - GameConfig.getTowerCost());
             sufficientRunes = true;
-        } else if (towerType == Element.Air && hasSufficientRuins(
+        } else if (towerType == Element.Air && hasSufficientRunes(
                 GameConfig.getArune(), GameConfig.getTowerCost())) {
             GameConfig.setArune(GameConfig.getArune() - GameConfig.getTowerCost());
             sufficientRunes = true;
@@ -88,7 +88,7 @@ public class HotbarComponent extends HBox {
         }
     }
 
-    public static boolean hasSufficientRuins(int runes, int cost) {
+    public static boolean hasSufficientRunes(int runes, int cost) {
         return runes >= cost;
     }
 }

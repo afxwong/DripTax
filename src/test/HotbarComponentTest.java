@@ -3,7 +3,7 @@ package test;
 import resources.Enums;
 import resources.GameConfig;
 
-import static components.HotbarComponent.hasSufficientRuins;
+import static components.HotbarComponent.hasSufficientRunes;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HotbarComponentTest {
@@ -11,7 +11,7 @@ public class HotbarComponentTest {
     void testHasSufficientRunes() {
         GameConfig.setDifficulty(Enums.Difficulty.Easy);
         GameConfig config = new GameConfig();
-        assertTrue(hasSufficientRuins(GameConfig.getFrune(),
+        assertTrue(hasSufficientRunes(GameConfig.getFrune(),
                 config.calculateTowerCost(config.getDifford())));
     }
 }

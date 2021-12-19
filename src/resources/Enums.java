@@ -1,6 +1,7 @@
 package resources;
 
 public class Enums {
+
     public enum Difficulty {
         Hard,
         Medium,
@@ -11,6 +12,18 @@ public class Enums {
         Fire,
         Water,
         Ground,
-        Air
+        Air,
+        Boss
+    }
+
+    public enum EnemyLane {
+        Top,
+        Bottom
+    }
+
+    public enum TowerLane {
+        Top,
+        Middle,
+        Bottom
     }
 }
